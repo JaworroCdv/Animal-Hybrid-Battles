@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sea HorseCrab
   m_EditorClassIdentifier: 
   entityName: Sea HorseCrab
-  sprite: {fileID: 0}
+  sprite: {fileID: 2852930568512668060, guid: e38e9db0361782741ae08f081a9f53fd, type: 3}
   cost: 8
   spawnCooldown: 2.5
   health: 95

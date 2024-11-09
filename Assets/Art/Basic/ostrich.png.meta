@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ostrich_0: -1392339588478740851
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

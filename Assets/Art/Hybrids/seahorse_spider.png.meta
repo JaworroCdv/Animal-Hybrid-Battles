@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      seahorse_spider_0: -3868705069132615674
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

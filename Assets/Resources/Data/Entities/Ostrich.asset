@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ostrich
   m_EditorClassIdentifier: 
   entityName: Ostrich
-  sprite: {fileID: 0}
+  sprite: {fileID: -1392339588478740851, guid: 4c7eb791140728c4594368b6f91a986d, type: 3}
   cost: 6
   spawnCooldown: 3
   health: 60

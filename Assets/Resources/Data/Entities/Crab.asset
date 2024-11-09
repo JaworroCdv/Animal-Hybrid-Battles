@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crab
   m_EditorClassIdentifier: 
   entityName: Crab
-  sprite: {fileID: 0}
+  sprite: {fileID: -8781757214100938709, guid: 2a49118bfe6a46f4c85d0908d5a8af4c, type: 3}
   cost: 14
   spawnCooldown: 6.5
   health: 110

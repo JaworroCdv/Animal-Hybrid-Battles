@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Turtle
   m_EditorClassIdentifier: 
   entityName: Turtle
-  sprite: {fileID: 0}
+  sprite: {fileID: -429890163646538327, guid: e7dc850441de38f4888ec69a0769e8b7, type: 3}
   cost: 8
   spawnCooldown: 5
   health: 12

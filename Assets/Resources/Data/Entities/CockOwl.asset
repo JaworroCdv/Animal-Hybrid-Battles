@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CockOwl
   m_EditorClassIdentifier: 
   entityName: CockOwl
-  sprite: {fileID: 0}
+  sprite: {fileID: -6765505311227034597, guid: b5cd4640f66affb44bef74131bbc8d7c, type: 3}
   cost: 16
   spawnCooldown: 3.5
   health: 140

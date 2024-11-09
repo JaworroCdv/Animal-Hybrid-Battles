@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      turtle_0: -429890163646538327
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CockLion
   m_EditorClassIdentifier: 
   entityName: CockLion
-  sprite: {fileID: 0}
+  sprite: {fileID: -7977982421947372124, guid: b7c76634017c069409e30a914fe25b4b, type: 3}
   cost: 28
   spawnCooldown: 5.5
   health: 250

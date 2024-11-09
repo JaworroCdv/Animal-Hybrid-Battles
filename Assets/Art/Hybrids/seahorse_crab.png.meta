@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      seahorse_crab_0: 2852930568512668060
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

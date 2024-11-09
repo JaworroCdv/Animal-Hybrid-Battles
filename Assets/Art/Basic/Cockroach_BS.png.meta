@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Cockroach_BS_0: -6252109498037750319
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

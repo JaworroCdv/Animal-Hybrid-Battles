@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Bat_ostrich_0: -5829111350561999273
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

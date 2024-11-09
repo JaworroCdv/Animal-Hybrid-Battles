@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sea HorseShark
   m_EditorClassIdentifier: 
   entityName: Sea HorseShark
-  sprite: {fileID: 0}
+  sprite: {fileID: 3921606796726647378, guid: 8b818a13f0949cf469e4a5eb76774719, type: 3}
   cost: 14
   spawnCooldown: 4
   health: 140

@@ -178,7 +178,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cockroach_ostrich_0: -7070231648184983342
+      cockroach_ostrich_1: -9006320546114256298
+      cockroach_ostrich_2: -8536639067612935722
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
