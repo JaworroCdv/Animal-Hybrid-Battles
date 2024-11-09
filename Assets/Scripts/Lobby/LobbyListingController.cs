@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using AnimalHybridBattles.Player;
 using TMPro;
 using Unity.Services.Lobbies;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
@@ -14,6 +16,8 @@ namespace AnimalHybridBattles.Lobby
         [SerializeField] private LobbyFilterController filterController;
         [SerializeField] private TMP_InputField joinCodeInputField;
         [SerializeField] private Button joinCodeButton;
+        [SerializeField] private LobbyEntryController lobbyEntryPrefab;
+        [SerializeField] private Transform lobbyEntryContainer;
 
         private readonly List<string> lobbiesIds = new();
         
@@ -23,8 +27,30 @@ namespace AnimalHybridBattles.Lobby
         {
             filterController.OnFilterChanged += LobbyFilterController_OnFilterChanged;
             joinCodeButton.onClick.AddListener(OnJoinCodeButtonClicked);
-            
+
+            lobbyEntryPool = new ObjectPool<LobbyEntryController>(CreateLobbyEntry, actionOnRelease: CleanupEntry);
+
+            GetAllLobbies();
             ListAvailableLobbies();
+        }
+
+        private async void GetAllLobbies()
+        {
+            var availableLobbies = await LobbyService.Instance.QueryLobbiesAsync(new QueryLobbiesOptions
+            {
+                Filters = new List<QueryFilter>
+                {
+                    new(QueryFilter.FieldOptions.HasPassword, "false", QueryFilter.OpOptions.EQ)
+                }
+            });
+            
+            lobbiesIds.Clear();
+            lobbiesIds.AddRange(availableLobbies.Results.Select(x => x.Id));
+        }
+
+        private LobbyEntryController CreateLobbyEntry()
+        {
+            return Instantiate(lobbyEntryPrefab, lobbyEntryContainer);
         }
 
         private async void OnJoinCodeButtonClicked()
@@ -73,6 +99,11 @@ namespace AnimalHybridBattles.Lobby
             lobbyEntryPool.Clear();
             
             ListAvailableLobbies();
+        }
+
+        private static void CleanupEntry(LobbyEntryController entryController)
+        {
+            entryController.CleanUp();
         }
     }
 }
