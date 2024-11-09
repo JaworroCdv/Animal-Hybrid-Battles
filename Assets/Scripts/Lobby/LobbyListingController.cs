@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AnimalHybridBattles.Player;
 using TMPro;
 using Unity.Services.Lobbies;
@@ -20,32 +21,19 @@ namespace AnimalHybridBattles.Lobby
         [SerializeField] private Transform lobbyEntryContainer;
 
         private readonly List<string> lobbiesIds = new();
-        
+        private readonly List<LobbyEntryController> lobbyEntries = new();
+            
         private IObjectPool<LobbyEntryController> lobbyEntryPool;
-        
-        private void Start()
+
+        private async void Start()
         {
             filterController.OnFilterChanged += LobbyFilterController_OnFilterChanged;
             joinCodeButton.onClick.AddListener(OnJoinCodeButtonClicked);
 
-            lobbyEntryPool = new ObjectPool<LobbyEntryController>(CreateLobbyEntry, actionOnRelease: CleanupEntry);
+            lobbyEntryPool = new ObjectPool<LobbyEntryController>(CreateLobbyEntry, GetLobbyEntry, CleanupEntry);
 
-            GetAllLobbies();
+            await GetAllLobbies();
             ListAvailableLobbies();
-        }
-
-        private async void GetAllLobbies()
-        {
-            var availableLobbies = await LobbyService.Instance.QueryLobbiesAsync(new QueryLobbiesOptions
-            {
-                Filters = new List<QueryFilter>
-                {
-                    new(QueryFilter.FieldOptions.HasPassword, "false", QueryFilter.OpOptions.EQ)
-                }
-            });
-            
-            lobbiesIds.Clear();
-            lobbiesIds.AddRange(availableLobbies.Results.Select(x => x.Id));
         }
 
         private LobbyEntryController CreateLobbyEntry()
@@ -53,23 +41,31 @@ namespace AnimalHybridBattles.Lobby
             return Instantiate(lobbyEntryPrefab, lobbyEntryContainer);
         }
 
-        private async void OnJoinCodeButtonClicked()
+        private void GetLobbyEntry(LobbyEntryController entry)
         {
-            try
-            {
-                var joinCode = joinCodeInputField.text;
-                var lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(joinCode);
-                if (lobby == null)
-                    return;
+            entry.gameObject.SetActive(true);
+            lobbyEntries.Add(entry);
+        }
 
-                PlayerDataContainer.LobbyId = lobby.Id;
-                SceneManager.LoadScene(Constants.Scenes.LobbySceneName);
-            }
-            catch (LobbyServiceException e)
+        private void CleanupEntry(LobbyEntryController entry)
+        {
+            lobbyEntries.Remove(entry);
+            entry.gameObject.SetActive(false);
+            entry.CleanUp();
+        }
+
+        private async Task GetAllLobbies()
+        {
+            var availableLobbies = await LobbyService.Instance.QueryLobbiesAsync(new QueryLobbiesOptions
             {
-                Debug.LogError($"Joining by code failed with: {e.Message}");
-                throw;
-            }
+                Filters = new List<QueryFilter>
+                {
+                    new(QueryFilter.FieldOptions.HasPassword, false.ToString(), QueryFilter.OpOptions.EQ)
+                }
+            });
+            
+            lobbiesIds.Clear();
+            lobbiesIds.AddRange(availableLobbies.Results.Select(x => x.Id));
         }
 
         private async void ListAvailableLobbies()
@@ -91,19 +87,37 @@ namespace AnimalHybridBattles.Lobby
             }
         }
 
+        private async void OnJoinCodeButtonClicked()
+        {
+            try
+            {
+                var joinCode = joinCodeInputField.text;
+                var lobby = await LobbyService.Instance.JoinLobbyByCodeAsync(joinCode);
+                if (lobby == null)
+                    return;
+
+                PlayerDataContainer.LobbyId = lobby.Id;
+                SceneManager.LoadScene(Constants.Scenes.LobbySceneName);
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.LogError($"Joining by code failed with: {e.Message}");
+                throw;
+            }
+        }
+
         private void LobbyFilterController_OnFilterChanged(FilterValueChangedArgs args)
         {
             lobbiesIds.Clear();
             lobbiesIds.AddRange(args.AvailableLobbyIds);
+
+            for (var i = lobbyEntries.Count - 1; i >= 0; i--)
+                lobbyEntryPool.Release(lobbyEntries[i]);
             
+            lobbyEntries.Clear();
             lobbyEntryPool.Clear();
             
             ListAvailableLobbies();
-        }
-
-        private static void CleanupEntry(LobbyEntryController entryController)
-        {
-            entryController.CleanUp();
         }
     }
 }

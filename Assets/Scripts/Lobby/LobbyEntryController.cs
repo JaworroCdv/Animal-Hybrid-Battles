@@ -1,3 +1,4 @@
+using AnimalHybridBattles.Player;
 using TMPro;
 using Unity.Services.Lobbies;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace AnimalHybridBattles.Lobby
             try
             {
                 await LobbyService.Instance.GetLobbyAsync(lobbyId);
+                PlayerDataContainer.LobbyId = lobbyId;
                 SceneManager.LoadScene(Constants.Scenes.LobbySceneName);
             }
             catch (LobbyServiceException e)

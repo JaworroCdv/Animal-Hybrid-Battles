@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 69c1385dbfd65d04a995343f9a277cae
+guid: 53c6996bf24167b4db6173870ec8897c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3595033754767933788
-    second: Bat_crockodile_0
+      213: -2635699155034782854
+    second: mapka do 2d_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bat_crockodile_0
+      name: mapka do 2d_0
       rect:
         serializedVersion: 2
-        x: 255
-        y: 501
-        width: 1882
-        height: 1430
+        x: 0
+        y: 0
+        width: 3508
+        height: 1986
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c514b74172024e130800000000000000
-      internalID: 3595033754767933788
+      spriteID: a73ca51459d1c6bd0800000000000000
+      internalID: -2635699155034782854
       vertices: []
       indices: 
       edges: []
@@ -130,8 +130,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Bat_crockodile_0: 3595033754767933788
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
