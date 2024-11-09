@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      mapka do 2d_0: -2635699155034782854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

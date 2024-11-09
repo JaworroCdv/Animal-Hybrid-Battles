@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BatDile
   m_EditorClassIdentifier: 
   entityName: BatDile
-  sprite: {fileID: 0}
+  sprite: {fileID: 3595033754767933788, guid: 69c1385dbfd65d04a995343f9a277cae, type: 3}
   cost: 12
   spawnCooldown: 3
   health: 130
