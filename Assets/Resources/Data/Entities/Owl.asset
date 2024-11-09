@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Owl
   m_EditorClassIdentifier: 
   entityName: Owl
-  sprite: {fileID: 0}
+  sprite: {fileID: -6367637764002013411, guid: 04476479b63f9b744a696962a25f0abe, type: 3}
   cost: 5
   spawnCooldown: 2.5
   health: 45

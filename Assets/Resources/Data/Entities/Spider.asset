@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spider
   m_EditorClassIdentifier: 
   entityName: Spider
-  sprite: {fileID: 0}
+  sprite: {fileID: 3873087697204469031, guid: e3fb2f060fc6f2a41a839c4083ef4789, type: 3}
   cost: 15
   spawnCooldown: 7
   health: 80

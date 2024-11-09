@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crocodile
   m_EditorClassIdentifier: 
   entityName: Crocodile
-  sprite: {fileID: 0}
+  sprite: {fileID: 6507982653818034734, guid: 038016c40e9bf9340844d47994b2084e, type: 3}
   cost: 10
   spawnCooldown: 4
   health: 100

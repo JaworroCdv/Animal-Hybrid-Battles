@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sea Horse
   m_EditorClassIdentifier: 
   entityName: Sea Horse
-  sprite: {fileID: 0}
+  sprite: {fileID: 2727363536787704940, guid: 47cca5fcabda2f945bab9b8cbe2815b4, type: 3}
   cost: 7
   spawnCooldown: 3.5
   health: 50

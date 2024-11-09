@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SharkSpider
   m_EditorClassIdentifier: 
   entityName: SharkSpider
-  sprite: {fileID: 0}
+  sprite: {fileID: -725427972907892220, guid: 4facf22fa8aa68c44951da1b012fdb4c, type: 3}
   cost: 18
   spawnCooldown: 5
   health: 160

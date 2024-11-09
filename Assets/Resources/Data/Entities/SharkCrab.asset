@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SharkCrab
   m_EditorClassIdentifier: 
   entityName: SharkCrab
-  sprite: {fileID: 0}
+  sprite: {fileID: 5667994119001429754, guid: b8d323a86f3987b4582e2d7809981d75, type: 3}
   cost: 16
   spawnCooldown: 3.5
   health: 150

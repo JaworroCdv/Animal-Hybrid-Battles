@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shark
   m_EditorClassIdentifier: 
   entityName: Shark
-  sprite: {fileID: 0}
+  sprite: {fileID: 8861480726252175340, guid: 1c37f8bd01ed12f4f9d06042f34b52d3, type: 3}
   cost: 12
   spawnCooldown: 6
   health: 90

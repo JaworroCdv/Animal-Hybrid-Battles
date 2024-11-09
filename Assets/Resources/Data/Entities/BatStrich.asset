@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BatStrich
   m_EditorClassIdentifier: 
   entityName: BatStrich
-  sprite: {fileID: 0}
+  sprite: {fileID: -5829111350561999273, guid: 438a600bc3634c7468446e9af409a57a, type: 3}
   cost: 9
   spawnCooldown: 2.5
   health: 90

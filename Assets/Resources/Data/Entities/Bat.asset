@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bat
   m_EditorClassIdentifier: 
   entityName: Bat
-  sprite: {fileID: 0}
+  sprite: {fileID: -697763020151794088, guid: 9f4c5dea8560b744093a92642a7644c2, type: 3}
   cost: 4
   spawnCooldown: 1.5
   health: 40

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BatOwl
   m_EditorClassIdentifier: 
   entityName: BatOwl
-  sprite: {fileID: 0}
+  sprite: {fileID: 1038419466671878685, guid: 2f549eba3dea30b4da9c0b83d769f45f, type: 3}
   cost: 6
   spawnCooldown: 2
   health: 75

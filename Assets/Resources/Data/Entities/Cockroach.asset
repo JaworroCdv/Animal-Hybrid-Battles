@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cockroach
   m_EditorClassIdentifier: 
   entityName: Cockroach
-  sprite: {fileID: 0}
+  sprite: {fileID: -6252109498037750319, guid: c790fd7c057221e44abcff5edd25a00a, type: 3}
   cost: 25
   spawnCooldown: 10
   health: 200

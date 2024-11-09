@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      shark_spider_0: -725427972907892220
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

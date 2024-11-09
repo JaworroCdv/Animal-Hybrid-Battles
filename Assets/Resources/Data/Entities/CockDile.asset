@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CockDile
   m_EditorClassIdentifier: 
   entityName: CockDile
-  sprite: {fileID: 0}
+  sprite: {fileID: 6016934902253828629, guid: eedd39140a56c9945bd010a5fb2179b8, type: 3}
   cost: 26
   spawnCooldown: 5
   health: 230

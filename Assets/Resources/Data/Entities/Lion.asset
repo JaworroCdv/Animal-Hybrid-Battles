@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lion
   m_EditorClassIdentifier: 
   entityName: Lion
-  sprite: {fileID: 0}
+  sprite: {fileID: -3577052445578082173, guid: 1a0c35a3328643348ba6baab4c1d4c4f, type: 3}
   cost: 5
   spawnCooldown: 2
   health: 50

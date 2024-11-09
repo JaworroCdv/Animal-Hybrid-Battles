@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      crocodile_0: 6507982653818034734
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

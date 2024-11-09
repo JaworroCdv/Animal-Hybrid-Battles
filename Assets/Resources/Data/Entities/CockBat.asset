@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CockBat
   m_EditorClassIdentifier: 
   entityName: CockBat
-  sprite: {fileID: 0}
+  sprite: {fileID: -6756369337208087395, guid: 4c332a67f2641ca40baa245b4062bdff, type: 3}
   cost: 22
   spawnCooldown: 4.5
   health: 180
