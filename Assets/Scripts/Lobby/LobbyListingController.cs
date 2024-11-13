@@ -96,7 +96,7 @@ namespace AnimalHybridBattles.Lobby
                 if (lobby == null)
                     return;
 
-                PlayerDataContainer.LobbyId = lobby.Id;
+                PlayerDataContainer.JoinLobby(lobby);
                 SceneManager.LoadScene(Constants.Scenes.LobbySceneName);
             }
             catch (LobbyServiceException e)

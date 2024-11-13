@@ -35,8 +35,8 @@ namespace AnimalHybridBattles.Lobby
         {
             try
             {
-                await LobbyService.Instance.GetLobbyAsync(lobbyId);
-                PlayerDataContainer.LobbyId = lobbyId;
+                var lobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId);
+                PlayerDataContainer.JoinLobby(lobby);
                 SceneManager.LoadScene(Constants.Scenes.LobbySceneName);
             }
             catch (LobbyServiceException e)

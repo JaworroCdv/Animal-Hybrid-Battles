@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 namespace AnimalHybridBattles.MainMenu
 {
+    using Unity.Services.Lobbies;
+
     public class MainMenuController : MonoBehaviour
     {
         [SerializeField] private Button createLobbyButton;
@@ -20,6 +22,8 @@ namespace AnimalHybridBattles.MainMenu
         {
             await UnityServices.InitializeAsync();
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            
+            ((ILobbyServiceSDKConfiguration)LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
             
             createLobbyButton.onClick.AddListener(OnCreateLobbyButtonClicked);
             joinLobbyButton.onClick.AddListener(OnJoinLobbyButtonClicked);
