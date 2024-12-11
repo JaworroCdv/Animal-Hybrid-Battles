@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      create_lobby_button_active_0: -3506712281875808201
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

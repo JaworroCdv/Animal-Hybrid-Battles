@@ -1,6 +1,5 @@
 namespace AnimalHybridBattles.Lobby
 {
-    using System;
     using System.Collections.Generic;
     using UnityEngine.UI;
     using Player;
@@ -19,12 +18,10 @@ namespace AnimalHybridBattles.Lobby
         private readonly LobbyEventCallbacks callbacks = new();
         private readonly List<bool> playerReadyStates = new() { false, false };
         
-        private int lobbyIndex;
         private float heartbeatTimer;
         private bool hasConnected;
         private bool isReady;
         
-        private const string IsReadyKey = "IsReady";
         private const float HeartbeatInterval = 8f;
         
         private async void Start()
@@ -54,7 +51,7 @@ namespace AnimalHybridBattles.Lobby
                 SetReadyState(false);
 
                 var isHost = lobby.HostId == PlayerDataContainer.PlayerId;
-                lobbyIndex = isHost ? 0 : 1;
+                PlayerDataContainer.SetLobbyIndex(isHost ? 0 : 1);
                 lobbyNameText.text = lobby.Name;
                 lobbyJoinCodeText.text = lobby.LobbyCode;
                 
@@ -63,9 +60,9 @@ namespace AnimalHybridBattles.Lobby
                 for (var i = 0; i < playerReadyButtons.Length; i++)
                 {
                     var button = playerReadyButtons[i];
-                    button.interactable = i == lobbyIndex;
+                    button.interactable = i == PlayerDataContainer.LobbyIndex;
                     
-                    if (i == lobbyIndex)
+                    if (i == PlayerDataContainer.LobbyIndex)
                         button.onClick.AddListener(OnReadyToggled);
                 }
                 
@@ -110,8 +107,8 @@ namespace AnimalHybridBattles.Lobby
         {
             foreach (var (index, changedData) in playersData)
             {
-                var isReady = changedData.ContainsKey(IsReadyKey) && changedData[IsReadyKey].Value.Value.ToLower() == "true";
-                if (index == lobbyIndex)
+                var isReady = changedData.ContainsKey(Constants.PlayerData.IsReady) && changedData[Constants.PlayerData.IsReady].Value.Value.ToLower() == "true";
+                if (index == PlayerDataContainer.LobbyIndex)
                 {
                     playerReadyButtons[index].interactable = true;
                     this.isReady = isReady;
@@ -119,7 +116,7 @@ namespace AnimalHybridBattles.Lobby
                 
                 RefreshButtonState(index, isReady); 
                 
-                if (lobbyIndex > 0)
+                if (PlayerDataContainer.LobbyIndex > 0)
                     continue;
                 
                 playerReadyStates[index] = isReady;
@@ -135,7 +132,7 @@ namespace AnimalHybridBattles.Lobby
                 {
                     Data = new Dictionary<string, PlayerDataObject>
                     {
-                        { IsReadyKey, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, isReady.ToString()) }
+                        { Constants.PlayerData.IsReady, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, isReady.ToString()) }
                     }
                 });
             }

@@ -1,9 +1,10 @@
-using UnityEngine;
-
 namespace AnimalHybridBattles.Entities
 {
+    using UnityEngine;
+    using UnityExtendedScriptable;
+
     [CreateAssetMenu(menuName = "Data/Animal Settings")]
-    public class EntitySettings : ScriptableObject
+    public class EntitySettings : SerializableScriptableObject
     {
         [SerializeField] private string entityName;
         [SerializeField] private Sprite sprite;

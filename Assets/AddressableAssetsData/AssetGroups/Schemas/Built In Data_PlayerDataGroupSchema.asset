@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
-  m_Name: Test Animal
+  m_Script: {fileID: 11500000, guid: b1487f5d688e4f94f828f879d599dbdc, type: 3}
+  m_Name: Built In Data_PlayerDataGroupSchema
   m_EditorClassIdentifier: 
-  entityName: 
-  sprite: {fileID: 0}
-  health: 0
-  movementSpeed: 0
-  attackCooldown: 0
-  attackDamage: 0
+  m_Group: {fileID: 11400000, guid: a59302a001e22c547828805b955dd4da, type: 2}
+  m_IncludeResourcesFolders: 1
+  m_IncludeBuildSettingsScenes: 1
