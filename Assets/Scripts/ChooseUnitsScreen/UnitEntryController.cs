@@ -13,26 +13,20 @@ namespace AnimalHybridBattles.ChooseUnitsScreen
         [SerializeField] private Color selectedColor;
         [SerializeField] private Color unselectedColor;
         
-        public void Initialize(EntitySettings entitySettings)
+        public async void Initialize(EntitySettings entitySettings)
         {
             unitImage.sprite = entitySettings.Sprite;
-            selectButton.onClick.AddListener(OnSelectButtonClicked);
+            selectButton.onClick.AddListener(ToggleUnitSelection);
 
             selectButton.interactable = false;
-            PlayerDataContainer.IsSelected(entitySettings).ContinueWith(task =>
-            {
-                selectButton.interactable = true;
-                background.color = task.Result ? selectedColor : unselectedColor;
-            });
+            background.color = await PlayerDataContainer.IsSelected(entitySettings) ? selectedColor : unselectedColor;
+            selectButton.interactable = true;
             
-            void OnSelectButtonClicked()
+            async void ToggleUnitSelection()
             {
                 selectButton.interactable = false;
-                PlayerDataContainer.ToggleUnitSelection(entitySettings).ContinueWith(task =>
-                {
-                    selectButton.interactable = true;
-                    background.color = task.Result ? selectedColor : unselectedColor;
-                });
+                background.color = await PlayerDataContainer.ToggleUnitSelection(entitySettings) ? selectedColor : unselectedColor;
+                selectButton.interactable = true;
             }
         }
         

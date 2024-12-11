@@ -1,6 +1,5 @@
 namespace AnimalHybridBattles.Lobby
 {
-    using System.Collections.Generic;
     using ChooseUnitsScreen;
     using Entities;
     using UnityEngine;
@@ -14,6 +13,8 @@ namespace AnimalHybridBattles.Lobby
         [SerializeField] private AssetLabelReference unitsLabel;
         
         private ObjectPool<UnitEntryController> unitsPool;
+        
+        public const int MaxUnits = 5;
         
         private void Awake()
         {

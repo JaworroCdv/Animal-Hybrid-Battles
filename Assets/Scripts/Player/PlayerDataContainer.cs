@@ -4,6 +4,7 @@ namespace AnimalHybridBattles.Player
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Entities;
+    using Lobby;
     using Unity.Services.Authentication;
     using Unity.Services.Lobbies;
     using Unity.Services.Lobbies.Models;
@@ -16,56 +17,43 @@ namespace AnimalHybridBattles.Player
         public static int LobbyIndex { get; private set; }
         
         private static HashSet<Guid> cachedSelectedUnits;
+        private static Task<Lobby> currentLobbyPendingTask;
 
-        private static Task<Lobby> currentUnitPendingTask;
+        private static Lobby lobbyCache;
+        private static LobbyEventCallbacks lobbyCallbacks;
         
         public static void JoinLobby(Lobby lobby)
         {
             PlayerId = AuthenticationService.Instance.PlayerId;
             LobbyId = lobby.Id;
+
+            OnLobbyChanged(null);
+            lobbyCallbacks = new LobbyEventCallbacks();
+            lobbyCallbacks.LobbyChanged += OnLobbyChanged;
+            LobbyService.Instance.SubscribeToLobbyEventsAsync(LobbyId, lobbyCallbacks);
         }
 
         public static async Task<bool> ToggleUnitSelection(EntitySettings entitySettings)
         {
             cachedSelectedUnits ??= await GetSelectedUnits();
-            if (cachedSelectedUnits.Add(entitySettings.Guid.GetGUID))
-                cachedSelectedUnits.Remove(entitySettings.Guid.GetGUID);
+            if (!cachedSelectedUnits.Remove(entitySettings.Guid.GetGUID))
+            {
+                if (cachedSelectedUnits.Count >= ChooseUnitsController.MaxUnits)
+                    return false;
+                
+                cachedSelectedUnits.Add(entitySettings.Guid.GetGUID);
+            }
 
             try
             {
-                var lobby = await LobbyService.Instance.GetLobbyAsync(LobbyId);
-                if (!lobby.Players[LobbyIndex].Data.TryGetValue(Constants.PlayerData.Units, out var unitsData))
+                _ = LobbyService.Instance.UpdatePlayerAsync(LobbyId, PlayerId, new UpdatePlayerOptions
                 {
-                    var units = new HashSet<Guid> { entitySettings.Guid.GetGUID };
-                    await LobbyService.Instance.UpdatePlayerAsync(LobbyId, PlayerId, new UpdatePlayerOptions
-                    {
-                        Data = new Dictionary<string, PlayerDataObject>
-                        {
-                            { Constants.PlayerData.Units, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, JsonUtility.ToJson(units)) }
-                        }
-                    });
-                    return true;
-                }
-                else
-                {
-                    var units = JsonUtility.FromJson<HashSet<Guid>>(unitsData.Value);
-                    var entityGuid = entitySettings.Guid.GetGUID;
-                    var wasEntryAdded = true;
-                    if (!units.Add(entityGuid))
-                    {
-                        units.Remove(entitySettings.Guid.GetGUID);
-                        wasEntryAdded = false;
+                    Data = new Dictionary<string, PlayerDataObject> 
+                    { 
+                        { Constants.PlayerData.Units, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, JsonUtility.ToJson(cachedSelectedUnits)) }
                     }
-
-                    await LobbyService.Instance.UpdatePlayerAsync(LobbyId, PlayerId, new UpdatePlayerOptions
-                    {
-                        Data = new Dictionary<string, PlayerDataObject>
-                        {
-                            { Constants.PlayerData.Units, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, JsonUtility.ToJson(units)) }
-                        }
-                    });
-                    return wasEntryAdded;
-                }
+                });
+                return cachedSelectedUnits.Contains(entitySettings.Guid.GetGUID);
             }
             catch (LobbyServiceException e)
             {
@@ -74,36 +62,28 @@ namespace AnimalHybridBattles.Player
             }
         }
 
-        public static async Task<HashSet<Guid>> GetSelectedUnits()
+        private static async Task<HashSet<Guid>> GetSelectedUnits()
         {
             try
             {
-                currentUnitPendingTask = LobbyService.Instance.GetLobbyAsync(LobbyId);
+                if (currentLobbyPendingTask != null)
+                    await currentLobbyPendingTask;
                 
-                var lobby = await currentUnitPendingTask;
-                if (!lobby.Players[LobbyIndex].Data.TryGetValue(Constants.PlayerData.Units, out var unitsData))
+                if (lobbyCache.Players[LobbyIndex].Data == null || !lobbyCache.Players[LobbyIndex].Data.TryGetValue(Constants.PlayerData.Units, out var unitsData))
                     return new HashSet<Guid>();
 
                 var units = JsonUtility.FromJson<HashSet<Guid>>(unitsData.Value);
-                var unitIds = new HashSet<Guid>();
-                foreach (var unitId in units)
-                    unitIds.Add(unitId);
-
-                currentUnitPendingTask = null;
-                return unitIds;
+                return new HashSet<Guid>(units);
             }
             catch (LobbyServiceException e)
             {
-                currentUnitPendingTask = null;
                 Debug.LogError($"[PlayerDataContainer] Failed to check if unit is selected with: {e.Message}");
                 throw;
             }
         }
-        
+
         public static async Task<bool> IsSelected(EntitySettings entitySettings)
         {
-            Task.WaitAll(currentUnitPendingTask);
-            
             cachedSelectedUnits ??= await GetSelectedUnits();
             return cachedSelectedUnits.Contains(entitySettings.Guid.GetGUID);
         }
@@ -111,6 +91,13 @@ namespace AnimalHybridBattles.Player
         public static void SetLobbyIndex(int index)
         {
             LobbyIndex = index;
+        }
+
+        private static async void OnLobbyChanged(ILobbyChanges lobbyChanges)
+        {
+            currentLobbyPendingTask = LobbyService.Instance.GetLobbyAsync(LobbyId);
+            lobbyCache = await currentLobbyPendingTask;
+            currentLobbyPendingTask = null;
         }
     }
 }
