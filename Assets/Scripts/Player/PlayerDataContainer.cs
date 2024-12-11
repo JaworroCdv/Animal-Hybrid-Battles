@@ -15,6 +15,10 @@ namespace AnimalHybridBattles.Player
         public static string LobbyId { get; private set; }
         public static int LobbyIndex { get; private set; }
         
+        private static HashSet<Guid> cachedSelectedUnits;
+
+        private static Task<Lobby> currentUnitPendingTask;
+        
         public static void JoinLobby(Lobby lobby)
         {
             PlayerId = AuthenticationService.Instance.PlayerId;
@@ -23,6 +27,10 @@ namespace AnimalHybridBattles.Player
 
         public static async Task<bool> ToggleUnitSelection(EntitySettings entitySettings)
         {
+            cachedSelectedUnits ??= await GetSelectedUnits();
+            if (cachedSelectedUnits.Add(entitySettings.Guid.GetGUID))
+                cachedSelectedUnits.Remove(entitySettings.Guid.GetGUID);
+
             try
             {
                 var lobby = await LobbyService.Instance.GetLobbyAsync(LobbyId);
@@ -66,22 +74,38 @@ namespace AnimalHybridBattles.Player
             }
         }
 
-        public static async Task<bool> IsUnitSelected(EntitySettings entitySettings)
+        public static async Task<HashSet<Guid>> GetSelectedUnits()
         {
             try
             {
-                var lobby = await LobbyService.Instance.GetLobbyAsync(LobbyId);
+                currentUnitPendingTask = LobbyService.Instance.GetLobbyAsync(LobbyId);
+                
+                var lobby = await currentUnitPendingTask;
                 if (!lobby.Players[LobbyIndex].Data.TryGetValue(Constants.PlayerData.Units, out var unitsData))
-                    return false;
+                    return new HashSet<Guid>();
 
                 var units = JsonUtility.FromJson<HashSet<Guid>>(unitsData.Value);
-                return units.Contains(entitySettings.Guid.GetGUID);
+                var unitIds = new HashSet<Guid>();
+                foreach (var unitId in units)
+                    unitIds.Add(unitId);
+
+                currentUnitPendingTask = null;
+                return unitIds;
             }
             catch (LobbyServiceException e)
             {
+                currentUnitPendingTask = null;
                 Debug.LogError($"[PlayerDataContainer] Failed to check if unit is selected with: {e.Message}");
                 throw;
             }
+        }
+        
+        public static async Task<bool> IsSelected(EntitySettings entitySettings)
+        {
+            Task.WaitAll(currentUnitPendingTask);
+            
+            cachedSelectedUnits ??= await GetSelectedUnits();
+            return cachedSelectedUnits.Contains(entitySettings.Guid.GetGUID);
         }
 
         public static void SetLobbyIndex(int index)

@@ -17,15 +17,22 @@ namespace AnimalHybridBattles.ChooseUnitsScreen
         {
             unitImage.sprite = entitySettings.Sprite;
             selectButton.onClick.AddListener(OnSelectButtonClicked);
+
+            selectButton.interactable = false;
+            PlayerDataContainer.IsSelected(entitySettings).ContinueWith(task =>
+            {
+                selectButton.interactable = true;
+                background.color = task.Result ? selectedColor : unselectedColor;
+            });
             
-            background.color = PlayerDataContainer.IsUnitSelected(entitySettings).Result ? selectedColor : unselectedColor;
-            
-            async void OnSelectButtonClicked()
+            void OnSelectButtonClicked()
             {
                 selectButton.interactable = false;
-                var wasAdded = await PlayerDataContainer.ToggleUnitSelection(entitySettings);
-                selectButton.interactable = true;
-                background.color = wasAdded ? selectedColor : unselectedColor;
+                PlayerDataContainer.ToggleUnitSelection(entitySettings).ContinueWith(task =>
+                {
+                    selectButton.interactable = true;
+                    background.color = task.Result ? selectedColor : unselectedColor;
+                });
             }
         }
         
