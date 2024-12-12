@@ -12,12 +12,17 @@ namespace AnimalHybridBattles.Player
 
     public static class PlayerDataContainer
     {
+        public static event Action<Dictionary<string, ChangedOrRemovedLobbyValue<DataObject>>> OnLobbyDataChanged;
+        public static event Action<Dictionary<int, Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>>>> OnPlayerDataChanged;
+        
         public static string PlayerId { get; private set; }
         public static string LobbyId { get; private set; }
         public static int LobbyIndex { get; private set; }
+
+        public static string LobbyName => lobbyCache.Name;
+        public static string LobbyJoinCode => lobbyCache.LobbyCode;
         
         private static HashSet<Guid> cachedSelectedUnits;
-        private static Task<Lobby> currentLobbyPendingTask;
 
         private static Lobby lobbyCache;
         private static LobbyEventCallbacks lobbyCallbacks;
@@ -26,22 +31,36 @@ namespace AnimalHybridBattles.Player
         {
             PlayerId = AuthenticationService.Instance.PlayerId;
             LobbyId = lobby.Id;
+            lobbyCache = lobby;
 
             OnLobbyChanged(null);
             lobbyCallbacks = new LobbyEventCallbacks();
             lobbyCallbacks.LobbyChanged += OnLobbyChanged;
-            LobbyService.Instance.SubscribeToLobbyEventsAsync(LobbyId, lobbyCallbacks);
+            lobbyCallbacks.DataAdded += LobbyCallbacks_LobbyChanged;
+            lobbyCallbacks.DataChanged += LobbyCallbacks_LobbyChanged;
+            lobbyCallbacks.PlayerDataChanged += LobbyCallbacks_PlayerDataChanged;
+            lobbyCallbacks.PlayerDataAdded += LobbyCallbacks_PlayerDataChanged;
+
+            try
+            {
+                LobbyService.Instance.SubscribeToLobbyEventsAsync(LobbyId, lobbyCallbacks);
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.LogError($"[PlayerDataContainer] Failed to subscribe to callbacks: {e.Message}");
+                throw;
+            }
         }
 
-        public static async Task<bool> ToggleUnitSelection(EntitySettings entitySettings)
+        public static bool ToggleUnitSelection(EntitySettings entitySettings)
         {
-            cachedSelectedUnits ??= await GetSelectedUnits();
-            if (!cachedSelectedUnits.Remove(entitySettings.Guid.GetGUID))
+            cachedSelectedUnits ??= GetSelectedUnits();
+            if (!cachedSelectedUnits.Remove(entitySettings.Guid))
             {
                 if (cachedSelectedUnits.Count >= ChooseUnitsController.MaxUnits)
                     return false;
                 
-                cachedSelectedUnits.Add(entitySettings.Guid.GetGUID);
+                cachedSelectedUnits.Add(entitySettings.Guid);
             }
 
             try
@@ -53,7 +72,7 @@ namespace AnimalHybridBattles.Player
                         { Constants.PlayerData.Units, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, JsonUtility.ToJson(cachedSelectedUnits)) }
                     }
                 });
-                return cachedSelectedUnits.Contains(entitySettings.Guid.GetGUID);
+                return cachedSelectedUnits.Contains(entitySettings.Guid);
             }
             catch (LobbyServiceException e)
             {
@@ -62,13 +81,39 @@ namespace AnimalHybridBattles.Player
             }
         }
 
-        private static async Task<HashSet<Guid>> GetSelectedUnits()
+        public static bool IsSelected(EntitySettings entitySettings)
+        {
+            cachedSelectedUnits ??= GetSelectedUnits();
+            return cachedSelectedUnits.Contains(entitySettings.Guid);
+        }
+
+        public static void SetLobbyIndex(int index)
+        {
+            LobbyIndex = index;
+        }
+
+        public static bool IsHost()
+        {
+            return PlayerId == lobbyCache.HostId;
+        }
+
+        public static bool IsPlayerReady(int lobbyIndex)
+        {
+            if (lobbyCache == null || lobbyCache.Players.Count <= lobbyIndex || lobbyCache.Players[lobbyIndex].Data == null)
+                return false;
+            
+            return lobbyCache.Players[lobbyIndex].Data.TryGetValue(Constants.PlayerData.IsReady, out var isReadyData) && bool.Parse(isReadyData.Value);
+        }
+
+        public static async Task RequestLobbyRefresh()
+        {
+            lobbyCache = await LobbyService.Instance.GetLobbyAsync(LobbyId);
+        }
+
+        private static HashSet<Guid> GetSelectedUnits()
         {
             try
             {
-                if (currentLobbyPendingTask != null)
-                    await currentLobbyPendingTask;
-                
                 if (lobbyCache.Players[LobbyIndex].Data == null || !lobbyCache.Players[LobbyIndex].Data.TryGetValue(Constants.PlayerData.Units, out var unitsData))
                     return new HashSet<Guid>();
 
@@ -82,22 +127,20 @@ namespace AnimalHybridBattles.Player
             }
         }
 
-        public static async Task<bool> IsSelected(EntitySettings entitySettings)
+        private static void OnLobbyChanged(ILobbyChanges lobbyChanges)
         {
-            cachedSelectedUnits ??= await GetSelectedUnits();
-            return cachedSelectedUnits.Contains(entitySettings.Guid.GetGUID);
+            if (lobbyChanges is { LobbyDeleted: false })
+                lobbyChanges.ApplyToLobby(lobbyCache);
         }
 
-        public static void SetLobbyIndex(int index)
+        private static void LobbyCallbacks_LobbyChanged(Dictionary<string, ChangedOrRemovedLobbyValue<DataObject>> changes)
         {
-            LobbyIndex = index;
+            OnLobbyDataChanged?.Invoke(changes);
         }
 
-        private static async void OnLobbyChanged(ILobbyChanges lobbyChanges)
+        private static void LobbyCallbacks_PlayerDataChanged(Dictionary<int, Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>>> changes)
         {
-            currentLobbyPendingTask = LobbyService.Instance.GetLobbyAsync(LobbyId);
-            lobbyCache = await currentLobbyPendingTask;
-            currentLobbyPendingTask = null;
+            OnPlayerDataChanged?.Invoke(changes);
         }
     }
 }

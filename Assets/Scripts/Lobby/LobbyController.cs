@@ -1,21 +1,26 @@
 namespace AnimalHybridBattles.Lobby
 {
+    using System;
     using System.Collections.Generic;
     using UnityEngine.UI;
     using Player;
     using TMPro;
+    using Unity.Netcode;
     using Unity.Services.Lobbies;
     using Unity.Services.Lobbies.Models;
+    using Unity.Services.Relay;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
 
     public class LobbyController : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI lobbyNameText;
         [SerializeField] private TextMeshProUGUI lobbyJoinCodeText;
         [SerializeField] private Button[] playerReadyButtons;
+        [SerializeField] private Sprite notReadySprite;
+        [SerializeField] private Sprite readySprite;
         [SerializeField] private Button startGameButton;
 
-        private readonly LobbyEventCallbacks callbacks = new();
         private readonly List<bool> playerReadyStates = new() { false, false };
         
         private float heartbeatTimer;
@@ -26,59 +31,41 @@ namespace AnimalHybridBattles.Lobby
         
         private async void Start()
         {
-            try
+            PlayerDataContainer.OnLobbyDataChanged += LobbyCallbacks_LobbyChanged;
+            PlayerDataContainer.OnPlayerDataChanged += LobbyCallbacks_PlayerDataChanged;
+            await PlayerDataContainer.RequestLobbyRefresh();
+
+            var isHost = PlayerDataContainer.IsHost();
+            PlayerDataContainer.SetLobbyIndex(isHost ? 0 : 1);
+            lobbyNameText.text = PlayerDataContainer.LobbyName;
+            lobbyJoinCodeText.text = PlayerDataContainer.LobbyJoinCode;
+                
+            startGameButton.gameObject.SetActive(isHost);
+            startGameButton.onClick.AddListener(StartServerAndGame);
+
+            for (var i = 0; i < playerReadyButtons.Length; i++)
             {
-                var lobby = await LobbyService.Instance.GetLobbyAsync(PlayerDataContainer.LobbyId);
-                if (lobby == null)
-                {
-                    Debug.LogError($"No lobby with id: {PlayerDataContainer.LobbyId}");
-                    return;
-                }
-
-                callbacks.PlayerDataChanged += LobbyCallbacks_PlayerDataChanged;
-                callbacks.PlayerDataAdded += LobbyCallbacks_PlayerDataChanged;
-
-                try
-                {
-                    await LobbyService.Instance.SubscribeToLobbyEventsAsync(PlayerDataContainer.LobbyId, callbacks);
-                }
-                catch (LobbyServiceException e)
-                {
-                    Debug.LogError($"Failed to subscribe to lobby events with: {e.Message}");
-                    throw;
-                }
-                
-                SetReadyState(false);
-
-                var isHost = lobby.HostId == PlayerDataContainer.PlayerId;
-                PlayerDataContainer.SetLobbyIndex(isHost ? 0 : 1);
-                lobbyNameText.text = lobby.Name;
-                lobbyJoinCodeText.text = lobby.LobbyCode;
-                
-                startGameButton.gameObject.SetActive(isHost);
-
-                for (var i = 0; i < playerReadyButtons.Length; i++)
-                {
-                    var button = playerReadyButtons[i];
-                    button.interactable = i == PlayerDataContainer.LobbyIndex;
+                var button = playerReadyButtons[i];
+                button.interactable = i == PlayerDataContainer.LobbyIndex;
+                RefreshButtonState(i, PlayerDataContainer.IsPlayerReady(i));
                     
-                    if (i == PlayerDataContainer.LobbyIndex)
-                        button.onClick.AddListener(OnReadyToggled);
-                }
+                if (i == PlayerDataContainer.LobbyIndex)
+                    button.onClick.AddListener(OnReadyToggled);
+            }
                 
-                hasConnected = true;
-                heartbeatTimer = HeartbeatInterval;
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.LogError($"Failed to load lobby with: {e.Message}");
-                throw;
-            }
+            hasConnected = true;
+            heartbeatTimer = HeartbeatInterval;
+        }
+
+        private void OnDestroy()
+        {
+            PlayerDataContainer.OnLobbyDataChanged -= LobbyCallbacks_LobbyChanged;
+            PlayerDataContainer.OnPlayerDataChanged -= LobbyCallbacks_PlayerDataChanged;
         }
 
         private async void Update()
         {
-            if (!hasConnected)
+            if (!hasConnected || !PlayerDataContainer.IsHost())
                 return;
             
             heartbeatTimer -= Time.deltaTime;
@@ -86,21 +73,86 @@ namespace AnimalHybridBattles.Lobby
                 return;
             
             heartbeatTimer = HeartbeatInterval;
-            await LobbyService.Instance.SendHeartbeatPingAsync(PlayerDataContainer.LobbyId);
+            
+            try
+            {
+                await LobbyService.Instance.SendHeartbeatPingAsync(PlayerDataContainer.LobbyId);
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.LogError($"[LobbyController] Failed to send heartbeat with: {e.Message}");
+                throw;
+            }
         }
 
         private void RefreshButtonState(int index, bool isReady)
         {
-            playerReadyButtons[index].GetComponent<Image>().color = isReady ? Color.green : Color.red;
+            playerReadyButtons[index].GetComponent<Image>().sprite = isReady ? readySprite : notReadySprite;
         }
 
         private void OnReadyToggled()
         {
             isReady = !isReady;
-            SetReadyState(isReady);
-
             foreach (var button in playerReadyButtons)
                 button.interactable = false;
+            
+            SetReadyState(isReady);
+        }
+
+        private static void SetReadyState(bool isReady)
+        {
+            try
+            {
+                _ = LobbyService.Instance.UpdatePlayerAsync(PlayerDataContainer.LobbyId, PlayerDataContainer.PlayerId, new UpdatePlayerOptions
+                {
+                    Data = new Dictionary<string, PlayerDataObject>
+                    {
+                        { Constants.PlayerData.IsReady, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, isReady.ToString()) }
+                    }
+                });
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.LogError($"Failed to update player with: {e.Message}");
+                throw;
+            }
+        }
+
+        private static async void StartServerAndGame()
+        {
+            var allocation = await Relay.Instance.CreateAllocationAsync(LobbyCreationController.MaxPlayersPerLobbyCount);
+            var joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+            NetworkManager.Singleton.StartHost();
+            
+            SendRelayJoinCodeToClients();
+
+            void SendRelayJoinCodeToClients()
+            {
+                LobbyService.Instance.UpdateLobbyAsync(PlayerDataContainer.LobbyId, new UpdateLobbyOptions
+                {
+                    Data = new Dictionary<string, DataObject>
+                    {
+                        { Constants.LobbyData.JoinCode, new DataObject(DataObject.VisibilityOptions.Member, joinCode) }
+                    }
+                });
+            }
+        }
+
+        private static void LobbyCallbacks_LobbyChanged(Dictionary<string,ChangedOrRemovedLobbyValue<DataObject>> lobbyChanges)
+        {
+            if (!lobbyChanges.TryGetValue(Constants.LobbyData.JoinCode, out var joinCodeData))
+                return;
+
+            if (!PlayerDataContainer.IsHost())
+            {
+                Relay.Instance.JoinAllocationAsync(joinCodeData.Value.Value);
+                NetworkManager.Singleton.StartClient();
+            }
+            else
+            {
+                NetworkManager.Singleton.SceneManager.LoadScene(Constants.Scenes.UnitsChooseScreenSceneName, LoadSceneMode.Single);
+            }
         }
 
         private void LobbyCallbacks_PlayerDataChanged(Dictionary<int, Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>>> playersData)
@@ -121,25 +173,6 @@ namespace AnimalHybridBattles.Lobby
                 
                 playerReadyStates[index] = isReady;
                 startGameButton.interactable = playerReadyStates.TrueForAll(x => x);
-            }
-        }
-
-        private static async void SetReadyState(bool isReady)
-        {
-            try
-            {
-                await LobbyService.Instance.UpdatePlayerAsync(PlayerDataContainer.LobbyId, PlayerDataContainer.PlayerId, new UpdatePlayerOptions
-                {
-                    Data = new Dictionary<string, PlayerDataObject>
-                    {
-                        { Constants.PlayerData.IsReady, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, isReady.ToString()) }
-                    }
-                });
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.LogError($"Failed to update player with: {e.Message}");
-                throw;
             }
         }
     }

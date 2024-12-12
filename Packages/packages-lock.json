@@ -1,11 +1,10 @@
 {
   "dependencies": {
-    "com.giosaffi.unity-scriptable-object-guid": {
-      "version": "https://github.com/saffiriogiorgio/unity-scriptable-object-guid.git",
+    "com.foxcult-games.unique-scriptable-objects": {
+      "version": "file:D:/PROJEKTY/UNITY/UniqueScriptableObjects",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "50e6e04ed0ad99a85f264d30a19984a5697b5ce8"
+      "source": "local",
+      "dependencies": {}
     },
     "com.unity.2d.animation": {
       "version": "10.1.1",

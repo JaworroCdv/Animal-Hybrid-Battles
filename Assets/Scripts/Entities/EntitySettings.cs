@@ -1,10 +1,10 @@
 namespace AnimalHybridBattles.Entities
 {
+    using FoxCultGames.UniqueScriptableObjects;
     using UnityEngine;
-    using UnityExtendedScriptable;
 
     [CreateAssetMenu(menuName = "Data/Animal Settings")]
-    public class EntitySettings : SerializableScriptableObject
+    public class EntitySettings : UniqueScriptableObject
     {
         [SerializeField] private string entityName;
         [SerializeField] private Sprite sprite;

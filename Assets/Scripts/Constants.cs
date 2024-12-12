@@ -2,6 +2,11 @@ namespace AnimalHybridBattles
 {
     public static class Constants
     {
+        public static class LobbyData
+        {
+            public const string JoinCode = "JoinCode";
+        }
+        
         public static class PlayerData
         {
             public const string IsReady = "IsReady";

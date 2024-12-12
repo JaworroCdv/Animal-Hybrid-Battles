@@ -17,7 +17,7 @@ namespace AnimalHybridBattles.Lobby
         [SerializeField] private TextMeshProUGUI errorPromptText;
         [SerializeField] private Button createLobbyButton;
 
-        private const int MaxPlayersPerLobbyCount = 2;
+        public const int MaxPlayersPerLobbyCount = 2;
         
         private void Start()
         {
@@ -46,7 +46,7 @@ namespace AnimalHybridBattles.Lobby
                     return;
                 
                 PlayerDataContainer.JoinLobby(lobby);
-                SceneManager.LoadScene(Constants.Scenes.UnitsChooseScreenSceneName);
+                SceneManager.LoadScene(Constants.Scenes.LobbySceneName);
             }
             catch (LobbyServiceException e)
             {

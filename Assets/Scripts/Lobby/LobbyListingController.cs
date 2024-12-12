@@ -97,7 +97,7 @@ namespace AnimalHybridBattles.Lobby
                     return;
 
                 PlayerDataContainer.JoinLobby(lobby);
-                SceneManager.LoadScene(Constants.Scenes.UnitsChooseScreenSceneName);
+                SceneManager.LoadScene(Constants.Scenes.LobbySceneName);
             }
             catch (LobbyServiceException e)
             {
