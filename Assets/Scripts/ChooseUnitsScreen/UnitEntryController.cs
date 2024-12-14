@@ -1,7 +1,8 @@
 namespace AnimalHybridBattles.ChooseUnitsScreen
 {
+    using System;
     using Entities;
-    using Player;
+    using Unity.Netcode;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -13,21 +14,28 @@ namespace AnimalHybridBattles.ChooseUnitsScreen
         [SerializeField] private Color selectedColor;
         [SerializeField] private Color unselectedColor;
         
-        public void Initialize(EntitySettings entitySettings)
+        public EntitySettings EntitySettings { get; private set; }
+        
+        public void Initialize(EntitySettings entitySettings, Predicate<Guid> isSelected, Action<Guid> toggleUnitSelection)
         {
+            EntitySettings = entitySettings;
+            
             unitImage.sprite = entitySettings.Sprite;
-            selectButton.onClick.AddListener(ToggleUnitSelection);
+            selectButton.onClick.AddListener(OnToggleSelection);
 
             selectButton.interactable = false;
-            background.color = PlayerDataContainer.IsSelected(entitySettings) ? selectedColor : unselectedColor;
+            background.color = isSelected.Invoke(entitySettings.Guid) ? selectedColor : unselectedColor;
             selectButton.interactable = true;
-            
-            void ToggleUnitSelection()
+
+            void OnToggleSelection()
             {
-                selectButton.interactable = false;
-                background.color = PlayerDataContainer.ToggleUnitSelection(entitySettings) ? selectedColor : unselectedColor;
-                selectButton.interactable = true;
+                toggleUnitSelection?.Invoke(entitySettings.Guid);
             }
+        }
+        
+        public void UpdateUnitSelection(bool isSelected)
+        {
+            background.color = isSelected ? selectedColor : unselectedColor;
         }
         
         public void CleanUp()

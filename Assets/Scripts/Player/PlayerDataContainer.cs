@@ -3,8 +3,6 @@ namespace AnimalHybridBattles.Player
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Entities;
-    using Lobby;
     using Unity.Services.Authentication;
     using Unity.Services.Lobbies;
     using Unity.Services.Lobbies.Models;
@@ -21,8 +19,6 @@ namespace AnimalHybridBattles.Player
 
         public static string LobbyName => lobbyCache.Name;
         public static string LobbyJoinCode => lobbyCache.LobbyCode;
-        
-        private static HashSet<Guid> cachedSelectedUnits;
 
         private static Lobby lobbyCache;
         private static LobbyEventCallbacks lobbyCallbacks;
@@ -51,42 +47,7 @@ namespace AnimalHybridBattles.Player
                 throw;
             }
         }
-
-        public static bool ToggleUnitSelection(EntitySettings entitySettings)
-        {
-            cachedSelectedUnits ??= GetSelectedUnits();
-            if (!cachedSelectedUnits.Remove(entitySettings.Guid))
-            {
-                if (cachedSelectedUnits.Count >= ChooseUnitsController.MaxUnits)
-                    return false;
-                
-                cachedSelectedUnits.Add(entitySettings.Guid);
-            }
-
-            try
-            {
-                _ = LobbyService.Instance.UpdatePlayerAsync(LobbyId, PlayerId, new UpdatePlayerOptions
-                {
-                    Data = new Dictionary<string, PlayerDataObject> 
-                    { 
-                        { Constants.PlayerData.Units, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, JsonUtility.ToJson(cachedSelectedUnits)) }
-                    }
-                });
-                return cachedSelectedUnits.Contains(entitySettings.Guid);
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.LogError($"[PlayerDataContainer] Failed to toggle unit selection with: {e.Message}");
-                throw;
-            }
-        }
-
-        public static bool IsSelected(EntitySettings entitySettings)
-        {
-            cachedSelectedUnits ??= GetSelectedUnits();
-            return cachedSelectedUnits.Contains(entitySettings.Guid);
-        }
-
+        
         public static void SetLobbyIndex(int index)
         {
             LobbyIndex = index;
@@ -108,23 +69,6 @@ namespace AnimalHybridBattles.Player
         public static async Task RequestLobbyRefresh()
         {
             lobbyCache = await LobbyService.Instance.GetLobbyAsync(LobbyId);
-        }
-
-        private static HashSet<Guid> GetSelectedUnits()
-        {
-            try
-            {
-                if (lobbyCache.Players[LobbyIndex].Data == null || !lobbyCache.Players[LobbyIndex].Data.TryGetValue(Constants.PlayerData.Units, out var unitsData))
-                    return new HashSet<Guid>();
-
-                var units = JsonUtility.FromJson<HashSet<Guid>>(unitsData.Value);
-                return new HashSet<Guid>(units);
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.LogError($"[PlayerDataContainer] Failed to check if unit is selected with: {e.Message}");
-                throw;
-            }
         }
 
         private static void OnLobbyChanged(ILobbyChanges lobbyChanges)

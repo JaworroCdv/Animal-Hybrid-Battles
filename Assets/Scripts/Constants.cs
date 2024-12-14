@@ -17,6 +17,7 @@ namespace AnimalHybridBattles
         {
             public const string LobbySceneName = "Lobby";
             public const string UnitsChooseScreenSceneName = "UnitsChooseScreen";
+            public const string GameplaySceneName = "Gameplay";
         }
     }
 }
