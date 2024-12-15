@@ -20,6 +20,7 @@ namespace AnimalHybridBattles.MainMenu
         
         public async void Start()
         {
+            await GameData.LoadData();
             await UnityServices.InitializeAsync();
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             

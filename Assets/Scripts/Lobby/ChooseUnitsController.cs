@@ -27,7 +27,7 @@ namespace AnimalHybridBattles.Lobby
         private NetworkList<Guid> selectedUnits;
         private ObjectPool<UnitEntryController> unitsPool;
         
-        private const int MaxUnitsPerPlayer = 5;
+        public const int MaxUnitsPerPlayer = 5;
         
         private void Awake()
         {
@@ -54,15 +54,12 @@ namespace AnimalHybridBattles.Lobby
 
         private void Start()
         {
-            Addressables.LoadAssetsAsync<EntitySettings>(unitsLabel, null).Completed += handle =>
+            foreach (var entitySettings in GameData.EntitySettings.Values)
             {
-                foreach (var entitySettings in handle.Result)
-                {
-                    var entry = unitsPool.Get();
-                    entry.Initialize(entitySettings, IsUnitSelected, x => ToggleUnitSelectionRpc(x, PlayerDataContainer.LobbyIndex));
-                    unitEntries.Add(entry);
-                }
-            };
+                var entry = unitsPool.Get();
+                entry.Initialize(entitySettings, IsUnitSelected, x => ToggleUnitSelectionRpc(x, PlayerDataContainer.LobbyIndex));
+                unitEntries.Add(entry);
+            }
         }
 
         private void Update()
@@ -75,6 +72,11 @@ namespace AnimalHybridBattles.Lobby
             if (timeLeft <= TimeSpan.Zero)
             {
                 timerText.text = "0:00";
+
+                var startingIndex = PlayerDataContainer.LobbyIndex * MaxUnitsPerPlayer;
+                for (var i = 0; i < MaxUnitsPerPlayer; i++)
+                    PlayerDataContainer.SelectedUnits[i] = selectedUnits[startingIndex + i];
+                
                 if (NetworkManager.IsServer)
                     NetworkManager.SceneManager.LoadScene(Constants.Scenes.GameplaySceneName, LoadSceneMode.Single);
                 

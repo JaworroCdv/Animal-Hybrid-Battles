@@ -1198,7 +1198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2a30c6cfb612442a2c04b7d9da0f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundStartTimerInMinutes: 0.5
+  roundStartTimerInMinutes: 0.25
   timerText: {fileID: 1401793091}
   unitsContainer: {fileID: 934817016}
   unitPrefab: {fileID: 1079918809161945040, guid: 250d7cd3b2cd0d24ab618c0148d7b991, type: 3}

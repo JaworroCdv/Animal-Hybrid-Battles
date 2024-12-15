@@ -3,6 +3,7 @@ namespace AnimalHybridBattles.Player
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Lobby;
     using Unity.Services.Authentication;
     using Unity.Services.Lobbies;
     using Unity.Services.Lobbies.Models;
@@ -12,6 +13,8 @@ namespace AnimalHybridBattles.Player
     {
         public static event Action<Dictionary<string, ChangedOrRemovedLobbyValue<DataObject>>> OnLobbyDataChanged;
         public static event Action<Dictionary<int, Dictionary<string, ChangedOrRemovedLobbyValue<PlayerDataObject>>>> OnPlayerDataChanged;
+        
+        public static readonly Guid[] SelectedUnits = new Guid[ChooseUnitsController.MaxUnitsPerPlayer];
         
         public static string PlayerId { get; private set; }
         public static string LobbyId { get; private set; }
