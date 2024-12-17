@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: Cockroach
   m_EditorClassIdentifier: 
+  serializedGuid: f9a67f6aee138ce4aa47820f5e50b5e1
   entityName: Cockroach
   sprite: {fileID: -6252109498037750319, guid: c790fd7c057221e44abcff5edd25a00a, type: 3}
   cost: 25
   spawnCooldown: 10
   health: 200
   movementSpeed: 5
-  attackCooldown: 0.5
+  attackCooldown: 1.5
   attackDamage: 5

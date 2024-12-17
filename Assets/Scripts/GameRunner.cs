@@ -12,11 +12,16 @@ namespace AnimalHybridBattles
     {
         [SerializeField] private NetworkObject entityPrefab;
         [SerializeField] private List<EntityEntryController> entityEntries;
-
+        [SerializeField] private List<Transform> spawnPoints;
+        
+        private int SpawnPointsPerPlayer => spawnPoints.Count / LobbyCreationController.MaxPlayersPerLobbyCount;
+        
         private NetworkList<float> cooldownTimers;
-
+        private bool[] spawnPointsOccupied;
+        
         private void Awake()
         {
+            spawnPointsOccupied = new bool[SpawnPointsPerPlayer];
             cooldownTimers = new NetworkList<float>(writePerm: NetworkVariableWritePermission.Owner);
         }
 
@@ -28,7 +33,19 @@ namespace AnimalHybridBattles
             {
                 var index = i;
                 var entitySettings = GameData.EntitySettings[PlayerDataContainer.SelectedUnits[i]];
-                entityEntries[i].Initialize(entitySettings, entityGuid => SpawnEntityRpc(entityGuid, index, PlayerDataContainer.LobbyIndex), () => cooldownTimers[index]);
+                entityEntries[i].Initialize(entitySettings, entityGuid =>
+                {
+                    var startingIndex = SpawnPointsPerPlayer * PlayerDataContainer.LobbyIndex;
+                    for (var j = startingIndex; j < startingIndex + SpawnPointsPerPlayer; j++)
+                    {
+                        if (spawnPointsOccupied[j - startingIndex])
+                            continue;
+                
+                        spawnPointsOccupied[j - startingIndex] = true;
+                        SpawnEntityRpc(entityGuid, index, j - startingIndex, PlayerDataContainer.LobbyIndex, spawnPoints[j].position);
+                        return;
+                    }
+                }, () => cooldownTimers[index]);
             }
             
             if (!NetworkManager.IsServer)
@@ -36,12 +53,6 @@ namespace AnimalHybridBattles
             
             for (var i = 0; i < LobbyCreationController.MaxPlayersPerLobbyCount * ChooseUnitsController.MaxUnitsPerPlayer; i++)
                 cooldownTimers.Add(0);
-        }
-
-        public override void OnDestroy()
-        {
-            cooldownTimers.Dispose();
-            base.OnDestroy();
         }
 
         private void Update()
@@ -73,19 +84,32 @@ namespace AnimalHybridBattles
         }
 
         [Rpc(SendTo.Server)]
-        private void SpawnEntityRpc(Guid entityGuid, int index, int playerIndex, RpcParams rpcParams = default)
+        private void SpawnEntityRpc(Guid entityGuid, int index, int spawnedIndex, int playerIndex, Vector2 position, RpcParams rpcParams = default)
         {
-            var entity = NetworkManager.SpawnManager.InstantiateAndSpawn(entityPrefab, NetworkManager.LocalClientId, true, position: Vector3.zero);
-            InitializeEntityLocallyRpc(entity.NetworkObjectId, entityGuid);
+            var clientId = NetworkManager.ConnectedClientsIds[playerIndex];
+            var entity = Instantiate(entityPrefab);
+            entity.SpawnWithOwnership(clientId);
+            
+            entity.transform.position = position;
+            InitializeEntityLocallyRpc(entity.NetworkObjectId, entityGuid, spawnedIndex);
             
             var startingIndex = playerIndex * ChooseUnitsController.MaxUnitsPerPlayer;
             cooldownTimers[startingIndex + index] = GameData.EntitySettings[entityGuid].SpawnCooldown;
         }
 
-        [Rpc(SendTo.ClientsAndHost)]
-        private void InitializeEntityLocallyRpc(ulong objectId, Guid entityGuid)
+        [Rpc(SendTo.Everyone, RequireOwnership = false)]
+        private void InitializeEntityLocallyRpc(ulong objectId, Guid entityGuid, int spawnedIndex)
         {
-            NetworkManager.SpawnManager.SpawnedObjects[objectId].GetComponent<EntityController>().Initialize(GameData.EntitySettings[entityGuid]);
+            var spawnedObject = NetworkManager.SpawnManager.SpawnedObjects[objectId];
+            var entityController = spawnedObject.GetComponent<EntityController>();
+            entityController.Initialize(GameData.EntitySettings[entityGuid]);
+            entityController.OnDestroyed += OnDestroyed;
+
+            void OnDestroyed()
+            {
+                entityController.OnDestroyed -= OnDestroyed;
+                spawnPointsOccupied[spawnedIndex] = false;
+            }
         }
     }
 }
