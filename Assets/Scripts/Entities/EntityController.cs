@@ -13,7 +13,8 @@ namespace AnimalHybridBattles.Entities
 
         public event Action OnDestroyed; 
         
-        private readonly NetworkVariable<float> health = new();
+        public readonly NetworkVariable<float> Health = new();
+        public float MaxHealth => entitySettings.Health;
         
         private EntitySettings entitySettings;
         private bool isRequestingAttack;
@@ -39,7 +40,7 @@ namespace AnimalHybridBattles.Entities
 
         private void Update()
         {
-            if (!IsOwner || entitySettings == null || health.Value <= 0)
+            if (!IsOwner || entitySettings == null || Health.Value <= 0)
                 return;
 
             if (isRequestingAttack && Time.time - attackResetTimer >= 5f)
@@ -64,7 +65,7 @@ namespace AnimalHybridBattles.Entities
         {
             var entity = NetworkManager.SpawnManager.SpawnedObjects[entityId];
             var entityController = entity.GetComponent<EntityController>();
-            entityController.health.Value = health;
+            entityController.Health.Value = health;
         }
 
         [Rpc(SendTo.Server)]
@@ -78,7 +79,7 @@ namespace AnimalHybridBattles.Entities
             var randomEntity = enemyUnits.RandomItem();
             var entityController = NetworkManager.SpawnManager.SpawnedObjects[entityId].GetComponent<EntityController>();
             
-            randomEntity.GetComponent<EntityController>().health.Value -= entityController.entitySettings.AttackDamage;
+            randomEntity.GetComponent<EntityController>().Health.Value -= entityController.entitySettings.AttackDamage;
             
             Debug.Log($"{entityId} attacked {randomEntity.NetworkObjectId} for {entityController.entitySettings.AttackDamage} damage");
             
@@ -106,7 +107,7 @@ namespace AnimalHybridBattles.Entities
                         return;
                     
                     var attackedEntityController = attackedEntity.GetComponent<EntityController>();
-                    if (attackedEntityController.health.Value <= 0)
+                    if (attackedEntityController.Health.Value <= 0)
                         attackedEntityController.NetworkObject.Despawn();
                 });
         }

@@ -1,6 +1,7 @@
 namespace AnimalHybridBattles.Entities
 {
     using System;
+    using TMPro;
     using Unity.Netcode;
     using UnityEngine;
     using UnityEngine.UI;
@@ -10,6 +11,7 @@ namespace AnimalHybridBattles.Entities
         [SerializeField] private Button selectButton;
         [SerializeField] private Image entityImage;
         [SerializeField] private Image cooldownImage;
+        [SerializeField] private TextMeshProUGUI entityCost;
 
         private EntitySettings entitySettings;
 
@@ -17,6 +19,7 @@ namespace AnimalHybridBattles.Entities
         {
             this.entitySettings = entitySettings;
             entityImage.sprite = entitySettings.Sprite;
+            entityCost.text = entitySettings.Cost.ToString();
             
             selectButton.onClick.AddListener(() =>
             {
