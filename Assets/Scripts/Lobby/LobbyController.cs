@@ -116,7 +116,7 @@ namespace AnimalHybridBattles.Lobby
 
         private async void Update()
         {
-            if (!hasConnected || !PlayerDataContainer.IsHost())
+            if (!hasConnected || !PlayerDataContainer.IsHost() || SceneManager.GetActiveScene().name != Constants.Scenes.LobbySceneName)
                 return;
             
             heartbeatTimer -= Time.deltaTime;

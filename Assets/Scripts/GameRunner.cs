@@ -8,6 +8,7 @@ namespace AnimalHybridBattles
     using TMPro;
     using Unity.Netcode;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
     using UnityEngine.UI;
 
     public class GameRunner : NetworkBehaviour
@@ -42,6 +43,9 @@ namespace AnimalHybridBattles
         private void Awake()
         {
             Instance = this;
+            
+            NetworkManager.OnServerStopped += NetworkManager_OnServerStopped;
+            NetworkManager.OnConnectionEvent += NetworkManager_OnConnectionEvent;
             
             spawnPointsOccupied = new bool[SpawnPointsPerPlayer];
             playerPoints = new NetworkList<int>();
@@ -115,11 +119,14 @@ namespace AnimalHybridBattles
         public void GoToMainMenu()
         {
             NetworkManager.Singleton.Shutdown();
-            UnityEngine.SceneManagement.SceneManager.LoadScene(Constants.Scenes.MainMenuSceneName);
+            SceneManager.LoadScene(Constants.Scenes.MainMenuSceneName);
         }
 
         private void Update()
         {
+            if (winScreen.activeSelf || loseScreen.activeSelf)
+                return;
+            
             UpdateEntityHealthSliders();
             
             if (!NetworkManager.IsServer || gameEnded.Value)
@@ -129,7 +136,8 @@ namespace AnimalHybridBattles
             if (gameTimer.Value <= 0)
             {
                 gameEnded.Value = true;
-                GameEndedRpc(playerPoints[0] > playerPoints[1] ? NetworkManager.ConnectedClientsIds[0] : NetworkManager.ConnectedClientsIds[1]);
+                var winner = playerPoints[0] > playerPoints[1] ? NetworkManager.ConnectedClientsIds[0] : playerPoints[0] == playerPoints[1] ? ulong.MaxValue : NetworkManager.ConnectedClientsIds[1];
+                GameEndedRpc(winner);
                 return;
             }
 
@@ -155,6 +163,9 @@ namespace AnimalHybridBattles
 
         private void UpdateEntityHealthSliders()
         {
+            if (!NetworkManager.IsConnectedClient)
+                return;
+            
             var index = 0;
             var enemyIndex = 0;
             foreach (var networkObject in NetworkManager.SpawnManager.SpawnedObjects.Values)
@@ -248,6 +259,31 @@ namespace AnimalHybridBattles
                 
                 playerPoints[playerIndex == 0 ? 1 : 0] += 1;
             }
+        }
+        
+        private void HideAllHpSliders()
+        {
+            foreach (var slider in playerHpSliders)
+                slider.gameObject.SetActive(false);
+            
+            foreach (var slider in enemyHpSliders)
+                slider.gameObject.SetActive(false);
+        }
+
+        private void NetworkManager_OnServerStopped(bool isServer)
+        {
+            if (!PlayerDataContainer.IsHost())
+                winScreen.SetActive(true);
+            
+            HideAllHpSliders();
+        }
+
+        private void NetworkManager_OnConnectionEvent(NetworkManager arg1, ConnectionEventData arg2)
+        {
+            if (arg2.EventType == ConnectionEvent.ClientDisconnected)
+                winScreen.SetActive(true);
+            
+            HideAllHpSliders();
         }
     }
 }

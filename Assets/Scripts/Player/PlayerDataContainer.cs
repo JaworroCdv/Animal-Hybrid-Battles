@@ -51,7 +51,7 @@ namespace AnimalHybridBattles.Player
                 throw;
             }
         }
-        
+
         public static void SetLobbyIndex(int index)
         {
             LobbyIndex = index;
