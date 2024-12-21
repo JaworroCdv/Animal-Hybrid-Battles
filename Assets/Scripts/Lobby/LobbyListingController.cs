@@ -12,6 +12,8 @@ using UnityEngine.UI;
 
 namespace AnimalHybridBattles.Lobby
 {
+    using UnityEngine.Rendering;
+
     public class LobbyListingController : MonoBehaviour
     {
         [SerializeField] private LobbyFilterController filterController;
@@ -19,6 +21,7 @@ namespace AnimalHybridBattles.Lobby
         [SerializeField] private Button joinCodeButton;
         [SerializeField] private LobbyEntryController lobbyEntryPrefab;
         [SerializeField] private Transform lobbyEntryContainer;
+        [SerializeField] private Button backButton;
 
         private readonly List<string> lobbiesIds = new();
         private readonly List<LobbyEntryController> lobbyEntries = new();
@@ -30,7 +33,9 @@ namespace AnimalHybridBattles.Lobby
             filterController.OnFilterChanged += LobbyFilterController_OnFilterChanged;
             joinCodeButton.onClick.AddListener(OnJoinCodeButtonClicked);
 
-            lobbyEntryPool = new ObjectPool<LobbyEntryController>(CreateLobbyEntry, GetLobbyEntry, CleanupEntry);
+            backButton.onClick.AddListener(() => SceneManager.LoadScene(Constants.Scenes.MainMenuSceneName));
+            
+            lobbyEntryPool = new UnityEngine.Pool.ObjectPool<LobbyEntryController>(CreateLobbyEntry, GetLobbyEntry, CleanupEntry);
 
             await GetAllLobbies();
             ListAvailableLobbies();

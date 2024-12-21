@@ -16,6 +16,7 @@ namespace AnimalHybridBattles.Lobby
         [SerializeField] private TMP_InputField passwordText;
         [SerializeField] private TextMeshProUGUI errorPromptText;
         [SerializeField] private Button createLobbyButton;
+        [SerializeField] private Button backButton;
 
         public const int MaxPlayersPerLobbyCount = 2;
         
@@ -25,6 +26,7 @@ namespace AnimalHybridBattles.Lobby
             OnPrivateStateToggled(isPrivateToggle.isOn);
             
             createLobbyButton.onClick.AddListener(TryCreatingLobby);
+            backButton.onClick.AddListener(() => SceneManager.LoadScene(Constants.Scenes.MainMenuSceneName));
             isPrivateToggle.onValueChanged.AddListener(OnPrivateStateToggled);
             
             errorPromptText.gameObject.SetActive(false);

@@ -22,6 +22,7 @@ namespace AnimalHybridBattles.Lobby
         [SerializeField] private Sprite notReadySprite;
         [SerializeField] private Sprite readySprite;
         [SerializeField] private Button startGameButton;
+        [SerializeField] private Button backButton;
 
         private readonly List<bool> playerReadyStates = new() { false, false };
         
@@ -46,6 +47,21 @@ namespace AnimalHybridBattles.Lobby
             PlayerDataContainer.SetLobbyIndex(isHost ? 0 : 1);
             lobbyNameText.text = PlayerDataContainer.LobbyName;
             lobbyJoinCodeText.text = PlayerDataContainer.LobbyJoinCode;
+            
+            backButton.onClick.AddListener(() =>
+            {
+                if (PlayerDataContainer.IsHost())
+                {
+                    NetworkManager.Singleton.Shutdown();
+                    LobbyService.Instance.DeleteLobbyAsync(PlayerDataContainer.LobbyId);
+                }
+                else
+                {
+                    NetworkManager.Singleton.Shutdown();
+                }
+                
+                SceneManager.LoadScene(Constants.Scenes.MainMenuSceneName);
+            });
                 
             startGameButton.gameObject.SetActive(isHost);
             startGameButton.onClick.AddListener(StartServerAndGame);
@@ -83,6 +99,9 @@ namespace AnimalHybridBattles.Lobby
                 
                 NetworkManager.Singleton.StartClient();
             }
+            
+            NetworkManager.Singleton.OnServerStopped += NetworkManager_OnServerStopped;
+            NetworkManager.Singleton.OnConnectionEvent += NetworkManager_OnConnectionEvent;
 
             async Task StartRelay()
             {
@@ -204,6 +223,19 @@ namespace AnimalHybridBattles.Lobby
                 playerReadyStates[index] = isReady;
                 startGameButton.interactable = playerReadyStates.TrueForAll(x => x);
             }
+        }
+
+        private static void NetworkManager_OnServerStopped(bool isServer)
+        {
+            if (!PlayerDataContainer.IsHost())
+                SceneManager.LoadScene(Constants.Scenes.MainMenuSceneName);
+        }
+
+        private void NetworkManager_OnConnectionEvent(NetworkManager arg1, ConnectionEventData arg2)
+        {
+            RefreshButtonState(1, false);
+            playerReadyStates[1] = false;
+            startGameButton.interactable = false;
         }
     }
 }
