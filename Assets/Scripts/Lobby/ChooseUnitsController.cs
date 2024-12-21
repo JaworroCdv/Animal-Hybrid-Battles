@@ -34,28 +34,10 @@ namespace AnimalHybridBattles.Lobby
             UserNetworkVariableSerialization<Guid>.ReadValue = GuidSerializationExtensions.ReadValueSafe;
             UserNetworkVariableSerialization<Guid>.DuplicateValue = GuidSerializationExtensions.DuplicateValue;
 
-            roundStartTicks.OnValueChanged += OnValueChanged;
             selectedUnits = new NetworkList<Guid>();
             
             unitsPool = new ObjectPool<UnitEntryController>(CreateUnitEntry, actionOnRelease: CleanUpEntry);
             timerText.text = "Choose your units";
-            
-            void OnValueChanged(long oldValue, long newValue)
-            {
-                if (oldValue != default || !NetworkManager.IsServer)
-                    return;
-
-                DisableUnitsSelectionRpc();
-            }
-        }
-
-        [Rpc(SendTo.Everyone)]
-        private void DisableUnitsSelectionRpc()
-        {
-            foreach (var entry in unitEntries)
-            {
-                entry.SetInteractable(false);
-            }
         }
 
         public override void OnNetworkSpawn()
@@ -74,7 +56,15 @@ namespace AnimalHybridBattles.Lobby
             foreach (var entitySettings in GameData.EntitySettings.Values)
             {
                 var entry = unitsPool.Get();
-                entry.Initialize(entitySettings, IsUnitSelected, x => ToggleUnitSelectionRpc(x, PlayerDataContainer.LobbyIndex));
+                entry.Initialize(entitySettings, IsUnitSelected, x =>
+                {
+                    foreach (var unit in unitEntries)
+                    {
+                        unit.SetInteractable(false);
+                    }
+                    
+                    ToggleUnitSelectionRpc(x, PlayerDataContainer.LobbyIndex);
+                });
                 unitEntries.Add(entry);
             }
         }
@@ -118,6 +108,12 @@ namespace AnimalHybridBattles.Lobby
         [Rpc(SendTo.Server)]
         private void ToggleUnitSelectionRpc(Guid unitGuid, int playerIndex, RpcParams rpcParams = default)
         {
+            if (roundStartTicks.Value != default)
+            {
+                DisableUnitsSelectionRpc();
+                return;
+            }
+            
             var unitStartingIndex = playerIndex * MaxUnitsPerPlayer;
             
             for (var i = unitStartingIndex; i < unitStartingIndex + MaxUnitsPerPlayer; i++)
@@ -127,7 +123,6 @@ namespace AnimalHybridBattles.Lobby
                 
                 selectedUnits[i] = Guid.Empty;
                 
-                DisableAllUnits();
                 SendSelectionResultRpc(unitGuid, false, RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
                 return;
             }
@@ -138,23 +133,13 @@ namespace AnimalHybridBattles.Lobby
                     continue;
                 
                 selectedUnits[i] = unitGuid;
-                CheckIfAllPlayersAreReadyRpc();
                 
-                DisableAllUnits();
+                CheckIfAllPlayersAreReadyRpc();
                 SendSelectionResultRpc(unitGuid, true, RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
                 return;
             }
             
-            DisableAllUnits();
             SendSelectionResultRpc(unitGuid, false, RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
-
-            void DisableAllUnits()
-            {
-                foreach (var unit in unitEntries)
-                {
-                    unit.SetInteractable(false);
-                }
-            }
         }
 
         [Rpc(SendTo.SpecifiedInParams)]
@@ -184,7 +169,17 @@ namespace AnimalHybridBattles.Lobby
                     return;
             }
             
+            DisableUnitsSelectionRpc();
             roundStartTicks.Value = DateTime.UtcNow.AddMinutes(roundStartTimerInMinutes).Ticks;
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void DisableUnitsSelectionRpc()
+        {
+            foreach (var entry in unitEntries)
+            {
+                entry.SetInteractable(false);
+            }
         }
 
         private UnitEntryController CreateUnitEntry()

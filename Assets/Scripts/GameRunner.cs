@@ -7,7 +7,6 @@ namespace AnimalHybridBattles
     using Player;
     using TMPro;
     using Unity.Netcode;
-    using Unity.Services.Relay;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -16,7 +15,8 @@ namespace AnimalHybridBattles
         [SerializeField] private NetworkObject entityPrefab;
         [SerializeField] private List<EntityEntryController> entityEntries;
         [SerializeField] private List<Transform> spawnPoints;
-        [SerializeField] private List<Slider> entityHpSliders;
+        [SerializeField] private List<Slider> playerHpSliders;
+        [SerializeField] private List<Slider> enemyHpSliders;
         [SerializeField] private int startingEnergy = 50;
         [SerializeField] private float gameDuration = 120f;
         [SerializeField] private TextMeshProUGUI timerText;
@@ -120,10 +120,10 @@ namespace AnimalHybridBattles
 
         private void Update()
         {
+            UpdateEntityHealthSliders();
+            
             if (!NetworkManager.IsServer || gameEnded.Value)
                 return;
-
-            UpdateEntityHealthSliders();
             
             gameTimer.Value -= Time.deltaTime;
             if (gameTimer.Value <= 0)
@@ -156,19 +156,35 @@ namespace AnimalHybridBattles
         private void UpdateEntityHealthSliders()
         {
             var index = 0;
+            var enemyIndex = 0;
             foreach (var networkObject in NetworkManager.SpawnManager.SpawnedObjects.Values)
             {
                 if (!networkObject.TryGetComponent<EntityController>(out var entityController))
                     continue;
+
+                if (networkObject.IsOwner)
+                {
+                    playerHpSliders[index].gameObject.SetActive(true);
+                    playerHpSliders[index].value = entityController.Health.Value / entityController.MaxHealth;
+                    playerHpSliders[index].transform.position = Camera.main.WorldToScreenPoint(entityController.transform.position + Vector3.up * 0.5f);
                 
-                entityHpSliders[index].gameObject.SetActive(true);
-                entityHpSliders[index].value = entityController.Health.Value / entityController.MaxHealth;
-                entityHpSliders[index].transform.position = Camera.main.WorldToScreenPoint(entityController.transform.position + Vector3.up * 0.5f);
-                index++;
+                    index++;
+                }
+                else
+                {
+                    enemyHpSliders[enemyIndex].gameObject.SetActive(true);
+                    enemyHpSliders[enemyIndex].value = entityController.Health.Value / entityController.MaxHealth;
+                    enemyHpSliders[enemyIndex].transform.position = Camera.main.WorldToScreenPoint(entityController.transform.position + Vector3.up * 0.5f);
+                    
+                    enemyIndex++;
+                }
             }
             
-            for (var i = index; i < entityHpSliders.Count; i++)
-                entityHpSliders[i].gameObject.SetActive(false);
+            for (var i = index; i < playerHpSliders.Count; i++)
+                playerHpSliders[i].gameObject.SetActive(false);
+            
+            for (var i = enemyIndex; i < enemyHpSliders.Count; i++)
+                enemyHpSliders[i].gameObject.SetActive(false);
         }
 
         [Rpc(SendTo.Everyone)]
