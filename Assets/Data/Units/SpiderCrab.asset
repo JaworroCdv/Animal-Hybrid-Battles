@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: SpiderCrab
   m_EditorClassIdentifier: 
+  serializedGuid: 8f628ca3ce2934845b1bb01c44d83b07
   entityName: SpiderCrab
-  sprite: {fileID: 0}
+  sprite: {fileID: 8585307588690829592, guid: c5d9c4f980c9e68438f9035a68a30b2c, type: 3}
   cost: 9
   spawnCooldown: 2.5
   health: 100

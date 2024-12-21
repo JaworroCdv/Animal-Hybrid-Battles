@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: OstrichSpider
   m_EditorClassIdentifier: 
+  serializedGuid: 50b2130683d471044b4be4f7452c64a2
   entityName: OstrichSpider
-  sprite: {fileID: 0}
+  sprite: {fileID: -6450756286046397175, guid: 182ba85903f512a44b594e9bdbb875a4, type: 3}
   cost: 13
   spawnCooldown: 3.5
   health: 125

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: Sea OwlHorse
   m_EditorClassIdentifier: 
+  serializedGuid: cf535a4a1e98adb499a91f99e4635656
   entityName: Sea OwlHorse
-  sprite: {fileID: 0}
+  sprite: {fileID: -2262016199224117136, guid: 0ba12de9fbe19df4086a68791f9c2ef4, type: 3}
   cost: 12
   spawnCooldown: 3.5
   health: 120

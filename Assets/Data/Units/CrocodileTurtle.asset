@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: CrocodileTurtle
   m_EditorClassIdentifier: 
+  serializedGuid: 1dd7f5b2f70b0724ea95ec19d9d4a154
   entityName: CrocodileTurtle
-  sprite: {fileID: 0}
+  sprite: {fileID: -5195372443129349187, guid: 4ed40bfcaf27d7d489302aae0c6799d3, type: 3}
   cost: 20
   spawnCooldown: 4.5
   health: 180

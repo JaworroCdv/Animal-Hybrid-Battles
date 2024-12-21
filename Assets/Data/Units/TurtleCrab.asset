@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: TurtleCrab
   m_EditorClassIdentifier: 
+  serializedGuid: 4463e11bd01bdf243ba0e03ad7a4390f
   entityName: TurtleCrab
-  sprite: {fileID: 0}
+  sprite: {fileID: -973889739891255094, guid: 1434ba3c94233724c87b78a32c281d65, type: 3}
   cost: 8
   spawnCooldown: 3
   health: 130

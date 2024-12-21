@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: OstrichTurtle
   m_EditorClassIdentifier: 
+  serializedGuid: d916bc16c4129d840949e44c967facc4
   entityName: OstrichTurtle
-  sprite: {fileID: 0}
+  sprite: {fileID: -2941204169071737146, guid: d0a0058ca2e93d94dacd0e3221ddbc74, type: 3}
   cost: 15
   spawnCooldown: 3.5
   health: 150

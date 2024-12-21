@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: Sea CrocHorse
   m_EditorClassIdentifier: 
+  serializedGuid: 60d2984151c991e4cb95ff20c1fd0c4a
   entityName: Sea CrocHorse
-  sprite: {fileID: 0}
+  sprite: {fileID: 3921606796726647378, guid: 8b818a13f0949cf469e4a5eb76774719, type: 3}
   cost: 15
   spawnCooldown: 3.5
   health: 140

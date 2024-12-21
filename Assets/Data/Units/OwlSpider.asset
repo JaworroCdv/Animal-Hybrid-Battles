@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
-  m_Name: CrocShark
+  m_Name: OwlSpider
   m_EditorClassIdentifier: 
-  serializedGuid: 6162430525763544c94129cb90a1c459
-  entityName: CrocShark
-  sprite: {fileID: -7862370977801752753, guid: cfdaf82e7cc79f24dba3897539e67d9a, type: 3}
-  cost: 25
-  spawnCooldown: 5
-  health: 220
-  movementSpeed: 3.5
+  serializedGuid: 8fe01e535ff9ddb42bc461b5a9da4ca6
+  entityName: OwlSpider
+  sprite: {fileID: 1194877466713385756, guid: 68b253d57a6d50a4bb87053815bd03b5, type: 3}
+  cost: 20
+  spawnCooldown: 4
+  health: 170
+  movementSpeed: 3.2
   attackCooldown: 2
-  attackDamage: 45
+  attackDamage: 36

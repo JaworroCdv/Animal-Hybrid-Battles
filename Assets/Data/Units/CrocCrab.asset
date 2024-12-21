@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: CrocCrab
   m_EditorClassIdentifier: 
+  serializedGuid: 6168aa527b1d59e4b90c7420a3b369c9
   entityName: CrocCrab
-  sprite: {fileID: 0}
+  sprite: {fileID: -6276985088716034305, guid: 252d01b4df3038b4cba9e93ad9ef303a, type: 3}
   cost: 16
   spawnCooldown: 4
   health: 150

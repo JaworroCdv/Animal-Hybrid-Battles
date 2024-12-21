@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: Sea HorseTurtle
   m_EditorClassIdentifier: 
+  serializedGuid: 26d79791cde5be243be18026dcd7b006
   entityName: Sea HorseTurtle
-  sprite: {fileID: 0}
+  sprite: {fileID: 5044945095226102825, guid: d231931086913fc4c8358f64cf86ee1c, type: 3}
   cost: 14
   spawnCooldown: 3
   health: 135

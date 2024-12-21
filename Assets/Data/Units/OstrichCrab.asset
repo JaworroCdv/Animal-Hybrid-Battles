@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: OstrichCrab
   m_EditorClassIdentifier: 
+  serializedGuid: e62cfe669780d68498f9983b71328a6f
   entityName: OstrichCrab
-  sprite: {fileID: 0}
+  sprite: {fileID: 6393507054746992566, guid: a4001e10573c5e840907c848eba53685, type: 3}
   cost: 9
   spawnCooldown: 3
   health: 115

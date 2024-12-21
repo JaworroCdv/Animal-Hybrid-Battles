@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: TurtleSpider
   m_EditorClassIdentifier: 
+  serializedGuid: 04a8b9e57d40f91498977c4449fbcea4
   entityName: TurtleSpider
-  sprite: {fileID: 0}
+  sprite: {fileID: -3049376644496624935, guid: 18452caf90f6273499ad279c2a306701, type: 3}
   cost: 12
   spawnCooldown: 3.5
   health: 140

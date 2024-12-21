@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: OstrichDile
   m_EditorClassIdentifier: 
+  serializedGuid: 16846f030de0ff445832632683d63b03
   entityName: OstrichDile
-  sprite: {fileID: 0}
+  sprite: {fileID: 8302686913076178456, guid: 1626261015be79b47af939ef22bfa065, type: 3}
   cost: 20
   spawnCooldown: 4.5
   health: 160

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: Sea OstrichHorse
   m_EditorClassIdentifier: 
+  serializedGuid: c91d328f2448c034d8cd19360a85bfc5
   entityName: Sea OstrichHorse
-  sprite: {fileID: 0}
+  sprite: {fileID: -2741575723800167427, guid: 32d49ebba93df8d4ea30e85ef6e145e7, type: 3}
   cost: 14
   spawnCooldown: 3
   health: 120

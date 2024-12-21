@@ -1,0 +1,1602 @@
+fileFormatVersion: 2
+guid: 252d01b4df3038b4cba9e93ad9ef303a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6276985088716034305
+    second: krokorab (1)_0
+  - first:
+      213: -5021401505853610174
+    second: krokorab (1)_1
+  - first:
+      213: 1636194450968783084
+    second: krokorab (1)_2
+  - first:
+      213: 5377751239538876600
+    second: krokorab (1)_3
+  - first:
+      213: 3488194930785575899
+    second: krokorab (1)_4
+  - first:
+      213: 8367805924393644412
+    second: krokorab (1)_5
+  - first:
+      213: -7817353999885453298
+    second: krokorab (1)_6
+  - first:
+      213: -7048611236227489556
+    second: krokorab (1)_7
+  - first:
+      213: -7202827368715076370
+    second: krokorab (1)_8
+  - first:
+      213: -926837857962394063
+    second: krokorab (1)_9
+  - first:
+      213: -636230882285923351
+    second: krokorab (1)_10
+  - first:
+      213: -1614522101139237833
+    second: krokorab (1)_11
+  - first:
+      213: 7894637585142074237
+    second: krokorab (1)_12
+  - first:
+      213: -8098172880470245293
+    second: krokorab (1)_13
+  - first:
+      213: 4489114379991944470
+    second: krokorab (1)_14
+  - first:
+      213: 3862144633490309610
+    second: krokorab (1)_15
+  - first:
+      213: -5910265650437666244
+    second: krokorab (1)_16
+  - first:
+      213: -94214695352013546
+    second: krokorab (1)_17
+  - first:
+      213: 8965572167493642969
+    second: krokorab (1)_18
+  - first:
+      213: 3897123863878823316
+    second: krokorab (1)_19
+  - first:
+      213: -3341607112990323060
+    second: krokorab (1)_20
+  - first:
+      213: -7226011343078400717
+    second: krokorab (1)_21
+  - first:
+      213: -2011477139305423287
+    second: krokorab (1)_22
+  - first:
+      213: 3098904906163607535
+    second: krokorab (1)_23
+  - first:
+      213: -3292118934362849771
+    second: krokorab (1)_24
+  - first:
+      213: 2248937415510793148
+    second: krokorab (1)_25
+  - first:
+      213: -7186529244530076796
+    second: krokorab (1)_26
+  - first:
+      213: 1376470235460073856
+    second: krokorab (1)_27
+  - first:
+      213: 3780669206987359933
+    second: krokorab (1)_28
+  - first:
+      213: 5296259303852065632
+    second: krokorab (1)_29
+  - first:
+      213: -2161818813709625256
+    second: krokorab (1)_30
+  - first:
+      213: 8232748240707955494
+    second: krokorab (1)_31
+  - first:
+      213: 4611165682230872658
+    second: krokorab (1)_32
+  - first:
+      213: -1766070157805088525
+    second: krokorab (1)_33
+  - first:
+      213: 8684273032743404312
+    second: krokorab (1)_34
+  - first:
+      213: -1736307272618659958
+    second: krokorab (1)_35
+  - first:
+      213: 8219307804213948640
+    second: krokorab (1)_36
+  - first:
+      213: 6074535297089540064
+    second: krokorab (1)_37
+  - first:
+      213: 5618316344527691486
+    second: krokorab (1)_38
+  - first:
+      213: -128610936807267120
+    second: krokorab (1)_39
+  - first:
+      213: 8504012436012509098
+    second: krokorab (1)_40
+  - first:
+      213: 689944260496359239
+    second: krokorab (1)_41
+  - first:
+      213: 5130034804534043504
+    second: krokorab (1)_42
+  - first:
+      213: 5573167094676915121
+    second: krokorab (1)_43
+  - first:
+      213: -8220963919380000777
+    second: krokorab (1)_44
+  - first:
+      213: -8859948939653155803
+    second: krokorab (1)_45
+  - first:
+      213: -9070283919514801933
+    second: krokorab (1)_46
+  - first:
+      213: 6362086716937612515
+    second: krokorab (1)_47
+  - first:
+      213: -5309109600852160812
+    second: krokorab (1)_48
+  - first:
+      213: 3292038032771267718
+    second: krokorab (1)_49
+  - first:
+      213: -4515373330046580189
+    second: krokorab (1)_50
+  - first:
+      213: -5160481221260275344
+    second: krokorab (1)_51
+  - first:
+      213: -2061714936174262256
+    second: krokorab (1)_52
+  - first:
+      213: -2845263020223063255
+    second: krokorab (1)_53
+  - first:
+      213: 2860740517271988738
+    second: krokorab (1)_54
+  - first:
+      213: -8148468460503402881
+    second: krokorab (1)_55
+  - first:
+      213: -6945061136018637733
+    second: krokorab (1)_56
+  - first:
+      213: -7317281927112790897
+    second: krokorab (1)_57
+  - first:
+      213: 2912207982897945803
+    second: krokorab (1)_58
+  - first:
+      213: 3143363055440002045
+    second: krokorab (1)_59
+  - first:
+      213: -5077905487963276332
+    second: krokorab (1)_60
+  - first:
+      213: 1535574229722099827
+    second: krokorab (1)_61
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: krokorab (1)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 822
+        width: 2188
+        height: 1733
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffe28a6915ba3e8a0800000000000000
+      internalID: -6276985088716034305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_1
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 439
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 247ebf85fe5605ab0800000000000000
+      internalID: -5021401505853610174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_2
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 446
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce8a5792f2ee4b610800000000000000
+      internalID: 1636194450968783084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_3
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 447
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b0a123824c91aa40800000000000000
+      internalID: 5377751239538876600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_4
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 460
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd3eacceece886030800000000000000
+      internalID: 3488194930785575899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_5
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 466
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7174e8572b602470800000000000000
+      internalID: 8367805924393644412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_6
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 448
+        width: 20
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e08395984fd238390800000000000000
+      internalID: -7817353999885453298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_7
+      rect:
+        serializedVersion: 2
+        x: 745
+        y: 461
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce065d00d6d4e2e90800000000000000
+      internalID: -7048611236227489556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_8
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 483
+        width: 14
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eecb64d9baa6a0c90800000000000000
+      internalID: -7202827368715076370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_9
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 467
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13e74c7f0e53323f0800000000000000
+      internalID: -926837857962394063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_10
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 457
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e3d63a2267ab27f0800000000000000
+      internalID: -636230882285923351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_11
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 448
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 734149ff3b01899e0800000000000000
+      internalID: -1614522101139237833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_12
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 443
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7b47dc5e036f8d60800000000000000
+      internalID: 7894637585142074237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_13
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 480
+        width: 30
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3508ed1dba28d9f80800000000000000
+      internalID: -8098172880470245293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_14
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 489
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61d84878eb98c4e30800000000000000
+      internalID: 4489114379991944470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_15
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 463
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae10f56e418199530800000000000000
+      internalID: 3862144633490309610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_16
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 457
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3a487174b48afda0800000000000000
+      internalID: -5910265650437666244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_17
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 435
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61debe6db3841bef0800000000000000
+      internalID: -94214695352013546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_18
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 468
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9da669b726c1c6c70800000000000000
+      internalID: 8965572167493642969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_19
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 460
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49de130a18d551630800000000000000
+      internalID: 3897123863878823316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_20
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 476
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8e0b4b090a30a1d0800000000000000
+      internalID: -3341607112990323060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_21
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 452
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33d5ed0f7fc08bb90800000000000000
+      internalID: -7226011343078400717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_22
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 456
+        width: 44
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94e91e5f23cc514e0800000000000000
+      internalID: -2011477139305423287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_23
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 487
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe7d89ce795810b20800000000000000
+      internalID: 3098904906163607535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_24
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 467
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51ef6f6854b0052d0800000000000000
+      internalID: -3292118934362849771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_25
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 481
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbb1b9df9a4d53f10800000000000000
+      internalID: 2248937415510793148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_26
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 462
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48314db5ab1544c90800000000000000
+      internalID: -7186529244530076796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_27
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 430
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 089fe74e2643a1310800000000000000
+      internalID: 1376470235460073856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_28
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 447
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db64db7ec92a77430800000000000000
+      internalID: 3780669206987359933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_29
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 441
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 063c57ca6c7108940800000000000000
+      internalID: 5296259303852065632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_30
+      rect:
+        serializedVersion: 2
+        x: 763
+        y: 445
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 858d4142e3daff1e0800000000000000
+      internalID: -2161818813709625256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_31
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 437
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62bae9ce7e8904270800000000000000
+      internalID: 8232748240707955494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_32
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 440
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25ac7d9c1c62eff30800000000000000
+      internalID: 4611165682230872658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_33
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 441
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f01c9b6c88ad77e0800000000000000
+      internalID: -1766070157805088525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_34
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 436
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 813cc21ef4cb48870800000000000000
+      internalID: 8684273032743404312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_35
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 420
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f23a22cb567e7e0800000000000000
+      internalID: -1736307272618659958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_36
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 396
+        width: 27
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e0b4c176e8d01270800000000000000
+      internalID: 8219307804213948640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_37
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 433
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ef089e1ba51d4450800000000000000
+      internalID: 6074535297089540064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_38
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 428
+        width: 26
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ede185fb2f448fd40800000000000000
+      internalID: 5618316344527691486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_39
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 410
+        width: 13
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d46f5dc805173ef0800000000000000
+      internalID: -128610936807267120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_40
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 411
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa7a70e1142540670800000000000000
+      internalID: 8504012436012509098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_41
+      rect:
+        serializedVersion: 2
+        x: 587
+        y: 418
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74f74b146ac239900800000000000000
+      internalID: 689944260496359239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_42
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 421
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07364a1897b813740800000000000000
+      internalID: 5130034804534043504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_43
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 420
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b30d18d1fdd75d40800000000000000
+      internalID: 5573167094676915121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_44
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 407
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ff4d023fd449ed80800000000000000
+      internalID: -8220963919380000777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_45
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 424
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 524ffd3a1632b0580800000000000000
+      internalID: -8859948939653155803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_46
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 418
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f8e165e4d0ef1280800000000000000
+      internalID: -9070283919514801933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_47
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 410
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ec2c49492caa4850800000000000000
+      internalID: 6362086716937612515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_48
+      rect:
+        serializedVersion: 2
+        x: 579
+        y: 393
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4de479762f04256b0800000000000000
+      internalID: -5309109600852160812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_49
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 389
+        width: 15
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68c386a162bafad20800000000000000
+      internalID: 3292038032771267718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_50
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 409
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32a0d4a31eb2651c0800000000000000
+      internalID: -4515373330046580189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_51
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 383
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07115b0bba94268b0800000000000000
+      internalID: -5160481221260275344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_52
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 408
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 018473160315363e0800000000000000
+      internalID: -2061714936174262256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_53
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 380
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92b9c03ab589388d0800000000000000
+      internalID: -2845263020223063255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_54
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 385
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20a6096f75463b720800000000000000
+      internalID: 2860740517271988738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_55
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 394
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f76783c8b13daee80800000000000000
+      internalID: -8148468460503402881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_56
+      rect:
+        serializedVersion: 2
+        x: 741
+        y: 389
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5cfc3c71bf2e9f90800000000000000
+      internalID: -6945061136018637733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_57
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 360
+        width: 32
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8c6e0d1bdac37a90800000000000000
+      internalID: -7317281927112790897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_58
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 360
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcc50bc1bbd3a6820800000000000000
+      internalID: 2912207982897945803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_59
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 373
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfb769f6b087f9b20800000000000000
+      internalID: 3143363055440002045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_60
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 364
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4db31f2dcd7a789b0800000000000000
+      internalID: -5077905487963276332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: krokorab (1)_61
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 365
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37074d840a47f4510800000000000000
+      internalID: 1535574229722099827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

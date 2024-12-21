@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: OwlShark
   m_EditorClassIdentifier: 
+  serializedGuid: 302fb04e3702261429a83cdd1d70378b
   entityName: OwlShark
-  sprite: {fileID: 0}
+  sprite: {fileID: 281595249726118834, guid: 9089075e2dc910643bcb323a8f7f25c2, type: 3}
   cost: 17
   spawnCooldown: 4.5
   health: 140

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: OwlStrich
   m_EditorClassIdentifier: 
+  serializedGuid: 109ae8f83158b9346843efba4bfc6904
   entityName: OwlStrich
-  sprite: {fileID: 0}
+  sprite: {fileID: 3086610554490386993, guid: c79ddc6815ab50a4ca6f787b4c96c6f6, type: 3}
   cost: 7
   spawnCooldown: 2.5
   health: 105

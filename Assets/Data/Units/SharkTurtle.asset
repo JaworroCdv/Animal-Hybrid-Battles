@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: SharkTurtle
   m_EditorClassIdentifier: 
+  serializedGuid: e2377bb6776aa5649a1dc5c5e304b842
   entityName: SharkTurtle
-  sprite: {fileID: 0}
+  sprite: {fileID: 4111815989124463124, guid: cad0f8cf3c105334098517747234502f, type: 3}
   cost: 18
   spawnCooldown: 4.5
   health: 160
