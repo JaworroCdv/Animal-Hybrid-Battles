@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.foxcult-games.unique-scriptable-objects": "file:D:/PROJEKTY/UNITY/UniqueScriptableObjects",
+    "com.foxcult-games.unique-scriptable-objects": "https://github.com/JaworroChanMaker/unique-scriptable-objects.git",
     "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",

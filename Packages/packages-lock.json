@@ -1,10 +1,11 @@
 {
   "dependencies": {
     "com.foxcult-games.unique-scriptable-objects": {
-      "version": "file:D:/PROJEKTY/UNITY/UniqueScriptableObjects",
+      "version": "https://github.com/JaworroChanMaker/unique-scriptable-objects.git",
       "depth": 0,
-      "source": "local",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "ac7b3883a1a6a9e46f6003fec2117cf0579ad222"
     },
     "com.kyrylokuzyk.primetween": {
       "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
