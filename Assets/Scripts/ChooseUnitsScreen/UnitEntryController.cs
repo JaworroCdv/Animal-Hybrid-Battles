@@ -42,5 +42,10 @@ namespace AnimalHybridBattles.ChooseUnitsScreen
         {
             selectButton.onClick.RemoveAllListeners();
         }
+
+        public void SetInteractable(bool isInteractable)
+        {
+            selectButton.interactable = isInteractable;
+        }
     }
 }

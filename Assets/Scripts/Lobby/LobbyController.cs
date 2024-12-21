@@ -2,10 +2,12 @@ namespace AnimalHybridBattles.Lobby
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using UnityEngine.UI;
     using Player;
     using TMPro;
     using Unity.Netcode;
+    using Unity.Netcode.Transports.UTP;
     using Unity.Services.Lobbies;
     using Unity.Services.Lobbies.Models;
     using Unity.Services.Relay;
@@ -28,7 +30,12 @@ namespace AnimalHybridBattles.Lobby
         private bool isReady;
         
         private const float HeartbeatInterval = 8f;
-        
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
         private async void Start()
         {
             PlayerDataContainer.OnLobbyDataChanged += LobbyCallbacks_LobbyChanged;
@@ -55,6 +62,50 @@ namespace AnimalHybridBattles.Lobby
                 
             hasConnected = true;
             heartbeatTimer = HeartbeatInterval;
+
+            if (PlayerDataContainer.IsHost())
+            {
+                await StartRelay();
+                NetworkManager.Singleton.StartHost();
+            }
+            else
+            {
+                var allocation = await Relay.Instance.JoinAllocationAsync(PlayerDataContainer.RelayCode);
+                
+                NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetClientRelayData(
+                    allocation.RelayServer.IpV4,
+                    (ushort)allocation.RelayServer.Port, 
+                    allocation.AllocationIdBytes, 
+                    allocation.Key, 
+                    allocation.ConnectionData,
+                    allocation.HostConnectionData
+                    );
+                
+                NetworkManager.Singleton.StartClient();
+            }
+
+            async Task StartRelay()
+            {
+                var allocation = await Relay.Instance.CreateAllocationAsync(LobbyCreationController.MaxPlayersPerLobbyCount);
+
+                NetworkManager.Singleton.gameObject.GetComponent<UnityTransport>().SetHostRelayData(
+                    allocation.RelayServer.IpV4,
+                    (ushort)allocation.RelayServer.Port, 
+                    allocation.AllocationIdBytes, 
+                    allocation.Key, 
+                    allocation.ConnectionData
+                    );
+                
+                var joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
+                
+                await LobbyService.Instance.UpdateLobbyAsync(PlayerDataContainer.LobbyId, new UpdateLobbyOptions
+                {
+                    Data = new Dictionary<string, DataObject>
+                    {
+                        { Constants.LobbyData.JoinCode, new DataObject(DataObject.VisibilityOptions.Member, joinCode) }
+                    }
+                });
+            }
         }
 
         private void OnDestroy()
@@ -118,25 +169,9 @@ namespace AnimalHybridBattles.Lobby
             }
         }
 
-        private static async void StartServerAndGame()
+        private static void StartServerAndGame()
         {
-            var allocation = await Relay.Instance.CreateAllocationAsync(LobbyCreationController.MaxPlayersPerLobbyCount);
-            var joinCode = await Relay.Instance.GetJoinCodeAsync(allocation.AllocationId);
-
-            NetworkManager.Singleton.StartHost();
-            
-            SendRelayJoinCodeToClients();
-
-            void SendRelayJoinCodeToClients()
-            {
-                LobbyService.Instance.UpdateLobbyAsync(PlayerDataContainer.LobbyId, new UpdateLobbyOptions
-                {
-                    Data = new Dictionary<string, DataObject>
-                    {
-                        { Constants.LobbyData.JoinCode, new DataObject(DataObject.VisibilityOptions.Member, joinCode) }
-                    }
-                });
-            }
+            NetworkManager.Singleton.SceneManager.LoadScene(Constants.Scenes.UnitsChooseScreenSceneName, LoadSceneMode.Single);
         }
 
         private static void LobbyCallbacks_LobbyChanged(Dictionary<string,ChangedOrRemovedLobbyValue<DataObject>> lobbyChanges)
@@ -147,11 +182,6 @@ namespace AnimalHybridBattles.Lobby
             if (!PlayerDataContainer.IsHost())
             {
                 Relay.Instance.JoinAllocationAsync(joinCodeData.Value.Value);
-                NetworkManager.Singleton.StartClient();
-            }
-            else
-            {
-                NetworkManager.Singleton.SceneManager.LoadScene(Constants.Scenes.UnitsChooseScreenSceneName, LoadSceneMode.Single);
             }
         }
 

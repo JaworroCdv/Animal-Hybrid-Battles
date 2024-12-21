@@ -7,6 +7,7 @@ namespace AnimalHybridBattles
     using Player;
     using TMPro;
     using Unity.Netcode;
+    using Unity.Services.Relay;
     using UnityEngine;
     using UnityEngine.UI;
 
@@ -21,8 +22,9 @@ namespace AnimalHybridBattles
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private GameObject winScreen;
         [SerializeField] private GameObject loseScreen;
+        [SerializeField] private TextMeshProUGUI pointsText;
         
-        public event Action OnPlayerMoneyChanged; 
+        public event Action OnPlayerMoneyChanged;
         
         public static GameRunner Instance { get; private set; }
         public NetworkList<int> PlayersEnergy { get; private set; }
@@ -33,6 +35,7 @@ namespace AnimalHybridBattles
         private readonly NetworkVariable<bool> gameEnded = new();
         
         private NetworkList<float> cooldownTimers;
+        private NetworkList<int> playerPoints;
         private bool[] spawnPointsOccupied;
         private float energyTimer;
         
@@ -41,6 +44,9 @@ namespace AnimalHybridBattles
             Instance = this;
             
             spawnPointsOccupied = new bool[SpawnPointsPerPlayer];
+            playerPoints = new NetworkList<int>();
+            playerPoints.OnListChanged += _ => pointsText.text = $"{playerPoints[0]} - {playerPoints[1]}";
+            
             PlayersEnergy = new NetworkList<int>();
             PlayersEnergy.OnListChanged += _ => OnPlayerMoneyChanged?.Invoke();
             
@@ -54,6 +60,12 @@ namespace AnimalHybridBattles
             base.OnNetworkSpawn();
 
             gameTimer.OnValueChanged += TimerValueChanged;
+
+            if (NetworkManager.IsServer)
+            {
+                for (var i = 0; i < LobbyCreationController.MaxPlayersPerLobbyCount * ChooseUnitsController.MaxUnitsPerPlayer; i++)
+                    cooldownTimers.Add(0);
+            }
             
             for (var i = 0; i < ChooseUnitsController.MaxUnitsPerPlayer; i++)
             {
@@ -82,11 +94,11 @@ namespace AnimalHybridBattles
             
             energyTimer = Time.time;
             
-            PlayersEnergy.Add(startingEnergy);
-            PlayersEnergy.Add(startingEnergy);
+            playerPoints.Add(0);
+            playerPoints.Add(0);
             
-            for (var i = 0; i < LobbyCreationController.MaxPlayersPerLobbyCount * ChooseUnitsController.MaxUnitsPerPlayer; i++)
-                cooldownTimers.Add(0);
+            PlayersEnergy.Add(startingEnergy);
+            PlayersEnergy.Add(startingEnergy);
 
             void TimerValueChanged(float previousValue, float newValue)
             {
@@ -98,6 +110,12 @@ namespace AnimalHybridBattles
                 
                 timerText.text = $"{Mathf.FloorToInt(newValue / 60)}:{Mathf.FloorToInt(newValue % 60):D2}";
             }
+        }
+        
+        public void GoToMainMenu()
+        {
+            NetworkManager.Singleton.Shutdown();
+            UnityEngine.SceneManagement.SceneManager.LoadScene(Constants.Scenes.MainMenuSceneName);
         }
 
         private void Update()
@@ -111,7 +129,7 @@ namespace AnimalHybridBattles
             if (gameTimer.Value <= 0)
             {
                 gameEnded.Value = true;
-                GameEndedRpc(NetworkManager.ServerClientId);
+                GameEndedRpc(playerPoints[0] > playerPoints[1] ? NetworkManager.ConnectedClientsIds[0] : NetworkManager.ConnectedClientsIds[1]);
                 return;
             }
 
@@ -188,14 +206,14 @@ namespace AnimalHybridBattles
             entity.SpawnWithOwnership(clientId);
             
             entity.transform.position = position;
-            InitializeEntityLocallyRpc(entity.NetworkObjectId, entityGuid, spawnedIndex);
+            InitializeEntityLocallyRpc(entity.NetworkObjectId, entityGuid, spawnedIndex, playerIndex);
             
             var startingIndex = playerIndex * ChooseUnitsController.MaxUnitsPerPlayer;
             cooldownTimers[startingIndex + index] = GameData.EntitySettings[entityGuid].SpawnCooldown;
         }
 
         [Rpc(SendTo.Everyone, RequireOwnership = false)]
-        private void InitializeEntityLocallyRpc(ulong objectId, Guid entityGuid, int spawnedIndex)
+        private void InitializeEntityLocallyRpc(ulong objectId, Guid entityGuid, int spawnedIndex, int playerIndex)
         {
             var spawnedObject = NetworkManager.SpawnManager.SpawnedObjects[objectId];
             var entityController = spawnedObject.GetComponent<EntityController>();
@@ -205,7 +223,14 @@ namespace AnimalHybridBattles
             void OnDestroyed()
             {
                 entityController.OnDestroyed -= OnDestroyed;
-                spawnPointsOccupied[spawnedIndex] = false;
+                
+                if (playerIndex == PlayerDataContainer.LobbyIndex)
+                    spawnPointsOccupied[spawnedIndex] = false;
+                
+                if (!NetworkManager.IsServer)
+                    return;
+                
+                playerPoints[playerIndex == 0 ? 1 : 0] += 1;
             }
         }
     }

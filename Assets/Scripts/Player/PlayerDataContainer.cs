@@ -22,6 +22,7 @@ namespace AnimalHybridBattles.Player
 
         public static string LobbyName => lobbyCache.Name;
         public static string LobbyJoinCode => lobbyCache.LobbyCode;
+        public static string RelayCode => lobbyCache.Data[Constants.LobbyData.JoinCode].Value;
 
         private static Lobby lobbyCache;
         private static LobbyEventCallbacks lobbyCallbacks;

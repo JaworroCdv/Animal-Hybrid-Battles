@@ -3,7 +3,6 @@ namespace AnimalHybridBattles.Lobby
     using System;
     using System.Collections.Generic;
     using ChooseUnitsScreen;
-    using Entities;
     using NetworkSerialization;
     using Player;
     using TMPro;
@@ -34,11 +33,29 @@ namespace AnimalHybridBattles.Lobby
             UserNetworkVariableSerialization<Guid>.WriteValue = GuidSerializationExtensions.WriteValueSafe;
             UserNetworkVariableSerialization<Guid>.ReadValue = GuidSerializationExtensions.ReadValueSafe;
             UserNetworkVariableSerialization<Guid>.DuplicateValue = GuidSerializationExtensions.DuplicateValue;
-            
+
+            roundStartTicks.OnValueChanged += OnValueChanged;
             selectedUnits = new NetworkList<Guid>();
             
             unitsPool = new ObjectPool<UnitEntryController>(CreateUnitEntry, actionOnRelease: CleanUpEntry);
             timerText.text = "Choose your units";
+            
+            void OnValueChanged(long oldValue, long newValue)
+            {
+                if (oldValue != default || !NetworkManager.IsServer)
+                    return;
+
+                DisableUnitsSelectionRpc();
+            }
+        }
+
+        [Rpc(SendTo.Everyone)]
+        private void DisableUnitsSelectionRpc()
+        {
+            foreach (var entry in unitEntries)
+            {
+                entry.SetInteractable(false);
+            }
         }
 
         public override void OnNetworkSpawn()
@@ -110,6 +127,7 @@ namespace AnimalHybridBattles.Lobby
                 
                 selectedUnits[i] = Guid.Empty;
                 
+                DisableAllUnits();
                 SendSelectionResultRpc(unitGuid, false, RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
                 return;
             }
@@ -122,16 +140,31 @@ namespace AnimalHybridBattles.Lobby
                 selectedUnits[i] = unitGuid;
                 CheckIfAllPlayersAreReadyRpc();
                 
+                DisableAllUnits();
                 SendSelectionResultRpc(unitGuid, true, RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
                 return;
             }
             
+            DisableAllUnits();
             SendSelectionResultRpc(unitGuid, false, RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
+
+            void DisableAllUnits()
+            {
+                foreach (var unit in unitEntries)
+                {
+                    unit.SetInteractable(false);
+                }
+            }
         }
 
         [Rpc(SendTo.SpecifiedInParams)]
         private void SendSelectionResultRpc(Guid unitGuid, bool isUnitSelected, RpcParams rpcParams)
         {
+            foreach (var entry in unitEntries)
+            {
+                entry.SetInteractable(roundStartTicks.Value == default);
+            }
+            
             foreach (var entry in unitEntries)
             {
                 if (entry.EntitySettings.Guid != unitGuid)

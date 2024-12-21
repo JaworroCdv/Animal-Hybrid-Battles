@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace AnimalHybridBattles.MainMenu
 {
+    using Lobby;
     using Unity.Services.Lobbies;
 
     public class MainMenuController : MonoBehaviour
@@ -21,8 +22,16 @@ namespace AnimalHybridBattles.MainMenu
         public async void Start()
         {
             await GameData.LoadData();
-            await UnityServices.InitializeAsync();
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+            var lobbyController = FindFirstObjectByType<LobbyController>();
+            if (lobbyController)
+                Destroy(lobbyController.gameObject);
+            
+            if (UnityServices.State == ServicesInitializationState.Uninitialized)
+            {
+                await UnityServices.InitializeAsync();
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            }
             
             ((ILobbyServiceSDKConfiguration)LobbyService.Instance).EnableLocalPlayerLobbyEvents(true);
             
