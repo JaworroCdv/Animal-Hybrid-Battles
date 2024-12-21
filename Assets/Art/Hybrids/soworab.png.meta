@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      soworab_0: 7999992455019692844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

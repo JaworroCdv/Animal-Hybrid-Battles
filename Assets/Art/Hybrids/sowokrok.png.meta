@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sowokrok_0: 1389758220551908073
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

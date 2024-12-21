@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "sowopaj\u0105k_0": 1194877466713385756
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

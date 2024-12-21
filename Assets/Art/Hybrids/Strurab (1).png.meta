@@ -154,7 +154,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Strurab (1)_0: 6393507054746992566
+      Strurab (1)_1: -5924636395386540474
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

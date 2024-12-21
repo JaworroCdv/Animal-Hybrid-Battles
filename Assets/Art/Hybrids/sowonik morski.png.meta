@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sowonik morski_0: -2262016199224117136
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Strukrok (1)_0: 8302686913076178456
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

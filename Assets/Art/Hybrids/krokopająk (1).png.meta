@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "krokopaj\u0105k (1)_0": 3112003214153777937
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

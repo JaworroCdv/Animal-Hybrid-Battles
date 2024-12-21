@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      krokokin (1)_0: -7862370977801752753
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

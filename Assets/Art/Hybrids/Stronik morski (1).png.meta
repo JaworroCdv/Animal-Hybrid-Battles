@@ -154,7 +154,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Stronik morski (1)_0: -2741575723800167427
+      Stronik morski (1)_1: -1720398599631678129
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

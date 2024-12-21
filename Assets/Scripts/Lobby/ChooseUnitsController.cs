@@ -3,6 +3,7 @@ namespace AnimalHybridBattles.Lobby
     using System;
     using System.Collections.Generic;
     using ChooseUnitsScreen;
+    using Entities;
     using NetworkSerialization;
     using Player;
     using TMPro;
@@ -19,6 +20,14 @@ namespace AnimalHybridBattles.Lobby
         [SerializeField] private Transform unitsContainer;
         [SerializeField] private UnitEntryController unitPrefab;
         [SerializeField] private AssetLabelReference unitsLabel;
+        
+        [Header("Unit Details")]
+        [SerializeField] private TextMeshProUGUI unitNameText;
+        [SerializeField] private TextMeshProUGUI unitCostText;
+        [SerializeField] private TextMeshProUGUI unitSpawnCooldownText;
+        [SerializeField] private TextMeshProUGUI unitHealthText;
+        [SerializeField] private TextMeshProUGUI unitDamageText;
+        [SerializeField] private TextMeshProUGUI unitAttackCooldownText;
 
         private readonly NetworkVariable<long> roundStartTicks = new();
         private readonly List<UnitEntryController> unitEntries = new();
@@ -65,6 +74,9 @@ namespace AnimalHybridBattles.Lobby
                     
                     ToggleUnitSelectionRpc(x, PlayerDataContainer.LobbyIndex);
                 });
+                
+                entry.OnUnitHovered += ShowUnitDetails;
+                
                 unitEntries.Add(entry);
             }
         }
@@ -180,6 +192,16 @@ namespace AnimalHybridBattles.Lobby
             {
                 entry.SetInteractable(false);
             }
+        }
+
+        private void ShowUnitDetails(EntitySettings entitySettings)
+        {
+            unitNameText.text = $"<b>{entitySettings.EntityName}</b>";
+            unitCostText.text = $"<b>Cost:</b> {entitySettings.Cost}";
+            unitSpawnCooldownText.text = $"<b>Spawn Cooldown:</b> {entitySettings.SpawnCooldown}s";
+            unitHealthText.text = $"<b>Health:</b> {entitySettings.Health}";
+            unitDamageText.text = $"<b>Damage:</b> {entitySettings.AttackDamage}";
+            unitAttackCooldownText.text = $"<b>Attack Cooldown:</b> {entitySettings.AttackCooldown}s";
         }
 
         private UnitEntryController CreateUnitEntry()
