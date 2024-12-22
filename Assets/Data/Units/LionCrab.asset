@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: LionCrab
   m_EditorClassIdentifier: 
+  serializedGuid: 071dbd72d37a00446aa7b86eabd8d59f
   entityName: LionCrab
-  sprite: {fileID: 0}
+  sprite: {fileID: -7637820181202777604, guid: 7f3f1cc07949a734cbb4844ba5adf501, type: 3}
   cost: 18
   spawnCooldown: 4
   health: 155

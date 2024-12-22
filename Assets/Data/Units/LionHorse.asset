@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: LionHorse
   m_EditorClassIdentifier: 
+  serializedGuid: 564d6cc33a3af134f921ceeb0a57a7a2
   entityName: LionHorse
-  sprite: {fileID: 0}
+  sprite: {fileID: -266050846962888350, guid: 220180eb303d66c4ea12c115bc872485, type: 3}
   cost: 16
   spawnCooldown: 4.5
   health: 140

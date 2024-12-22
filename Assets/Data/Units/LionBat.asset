@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: LionBat
   m_EditorClassIdentifier: 
+  serializedGuid: 4c3b376bb9245dd47ac9fbab919f801a
   entityName: LionBat
-  sprite: {fileID: 0}
+  sprite: {fileID: 3848746510919679240, guid: b3edb8a1cb9b4544782c311b62284419, type: 3}
   cost: 7
   spawnCooldown: 2
   health: 90

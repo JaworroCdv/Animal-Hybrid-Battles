@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: Sea BatHorse
   m_EditorClassIdentifier: 
+  serializedGuid: 71898067bf5f1c84f8fb9ea40676b7e8
   entityName: Sea BatHorse
-  sprite: {fileID: 0}
+  sprite: {fileID: 3766996817248962660, guid: 257864930b9d9e64ea0883fdb3a7be83, type: 3}
   cost: 10
   spawnCooldown: 3
   health: 100

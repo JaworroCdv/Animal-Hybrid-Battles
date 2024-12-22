@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: LionShark
   m_EditorClassIdentifier: 
+  serializedGuid: 930f6a4ec9b13f14689a4b2361d1ea86
   entityName: LionShark
-  sprite: {fileID: 0}
+  sprite: {fileID: 7935170639952936593, guid: c63da7394f359284f86ec60bc36c8ab9, type: 3}
   cost: 20
   spawnCooldown: 5
   health: 180

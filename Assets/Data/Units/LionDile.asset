@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: LionDile
   m_EditorClassIdentifier: 
+  serializedGuid: 7436825ca693b024189b969bffca959b
   entityName: LionDile
-  sprite: {fileID: 0}
+  sprite: {fileID: -2652313418511021297, guid: 479fad8242a9469439499a54a88389e7, type: 3}
   cost: 18
   spawnCooldown: 3.5
   health: 150

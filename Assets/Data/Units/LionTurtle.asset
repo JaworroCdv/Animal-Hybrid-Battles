@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: LionTurtle
   m_EditorClassIdentifier: 
+  serializedGuid: ca510f1cdbbe6bf4d9b2ed86fcd61b87
   entityName: LionTurtle
-  sprite: {fileID: 0}
+  sprite: {fileID: 2689307976024915502, guid: 229094583cb6c884391065cb55fbb874, type: 3}
   cost: 14
   spawnCooldown: 4
   health: 170

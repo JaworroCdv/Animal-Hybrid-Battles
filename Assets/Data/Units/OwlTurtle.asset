@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: OwlTurtle
   m_EditorClassIdentifier: 
+  serializedGuid: 8ba7f0ac9ac3d664e839063cf01df115
   entityName: OwlTurtle
-  sprite: {fileID: 0}
+  sprite: {fileID: 7594017192042861593, guid: 427dcca52f94c204789f6dce7e03fb74, type: 3}
   cost: 10
   spawnCooldown: 3
   health: 130
