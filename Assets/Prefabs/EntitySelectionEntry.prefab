@@ -269,6 +269,8 @@ MonoBehaviour:
   entityImage: {fileID: 6942297306275511619}
   cooldownImage: {fileID: 4496075778418261892}
   entityCost: {fileID: 3621398060882211424}
+  validColor: {r: 0.3137255, g: 0.5529412, b: 0.7176471, a: 1}
+  invalidColor: {r: 0.7176471, g: 0.3137255, b: 0.3426455, a: 1}
 --- !u!222 &1753620040866732067
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1,6 +1,5 @@
 namespace AnimalHybridBattles.Lobby
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using UnityEngine.UI;
@@ -78,6 +77,9 @@ namespace AnimalHybridBattles.Lobby
                 
             hasConnected = true;
             heartbeatTimer = HeartbeatInterval;
+            
+            if (NetworkManager.Singleton.IsListening)
+                return;
 
             if (PlayerDataContainer.IsHost())
             {
@@ -102,6 +104,7 @@ namespace AnimalHybridBattles.Lobby
             
             NetworkManager.Singleton.OnServerStopped += NetworkManager_OnServerStopped;
             NetworkManager.Singleton.OnConnectionEvent += NetworkManager_OnConnectionEvent;
+            NetworkManager.Singleton.SceneManager.OnLoad += NetworkManager_OnLoad;
 
             async Task StartRelay()
             {
@@ -127,10 +130,31 @@ namespace AnimalHybridBattles.Lobby
             }
         }
 
+        private async void NetworkManager_OnLoad(ulong clientid, string scenename, LoadSceneMode loadscenemode, AsyncOperation asyncoperation)
+        {
+            NetworkManager.Singleton.OnServerStopped -= NetworkManager_OnServerStopped;
+            NetworkManager.Singleton.OnConnectionEvent -= NetworkManager_OnConnectionEvent;
+            NetworkManager.Singleton.SceneManager.OnLoad -= NetworkManager_OnLoad;
+            
+            if (PlayerDataContainer.IsHost())
+                return;
+            
+            await LobbyService.Instance.UpdatePlayerAsync(PlayerDataContainer.LobbyId, PlayerDataContainer.PlayerId, new UpdatePlayerOptions
+            {
+                Data = new Dictionary<string, PlayerDataObject>
+                {
+                    { Constants.PlayerData.IsReady, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, false.ToString()) }
+                }
+            });
+        }
+
         private void OnDestroy()
         {
             PlayerDataContainer.OnLobbyDataChanged -= LobbyCallbacks_LobbyChanged;
             PlayerDataContainer.OnPlayerDataChanged -= LobbyCallbacks_PlayerDataChanged;
+            
+            NetworkManager.Singleton.OnServerStopped -= NetworkManager_OnServerStopped;
+            NetworkManager.Singleton.OnConnectionEvent -= NetworkManager_OnConnectionEvent;
         }
 
         private async void Update()
@@ -157,7 +181,8 @@ namespace AnimalHybridBattles.Lobby
 
         private void RefreshButtonState(int index, bool isReady)
         {
-            playerReadyButtons[index].GetComponent<Image>().sprite = isReady ? readySprite : notReadySprite;
+            if (playerReadyButtons[index] != null)
+                playerReadyButtons[index].GetComponent<Image>().sprite = isReady ? readySprite : notReadySprite;
         }
 
         private void OnReadyToggled()
@@ -188,9 +213,19 @@ namespace AnimalHybridBattles.Lobby
             }
         }
 
-        private static void StartServerAndGame()
+        private async void StartServerAndGame()
         {
+            PlayerDataContainer.OnPlayerDataChanged -= LobbyCallbacks_PlayerDataChanged;
+            
             NetworkManager.Singleton.SceneManager.LoadScene(Constants.Scenes.UnitsChooseScreenSceneName, LoadSceneMode.Single);
+            
+            await LobbyService.Instance.UpdatePlayerAsync(PlayerDataContainer.LobbyId, PlayerDataContainer.PlayerId, new UpdatePlayerOptions
+            {
+                Data = new Dictionary<string, PlayerDataObject>
+                {
+                    { Constants.PlayerData.IsReady, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, false.ToString()) }
+                }
+            });
         }
 
         private static void LobbyCallbacks_LobbyChanged(Dictionary<string,ChangedOrRemovedLobbyValue<DataObject>> lobbyChanges)

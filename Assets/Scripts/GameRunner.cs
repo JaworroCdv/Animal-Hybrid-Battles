@@ -2,6 +2,7 @@ namespace AnimalHybridBattles
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Entities;
     using Lobby;
     using Player;
@@ -49,7 +50,13 @@ namespace AnimalHybridBattles
             
             spawnPointsOccupied = new bool[SpawnPointsPerPlayer];
             playerPoints = new NetworkList<int>();
-            playerPoints.OnListChanged += _ => pointsText.text = $"{playerPoints[0]} - {playerPoints[1]}";
+            playerPoints.OnListChanged += _ =>
+            {
+                if (playerPoints.Count < 2)
+                    return;
+                
+                pointsText.text = $"{playerPoints[0]} - {playerPoints[1]}";
+            };
             
             PlayersEnergy = new NetworkList<int>();
             PlayersEnergy.OnListChanged += _ => OnPlayerMoneyChanged?.Invoke();
@@ -90,7 +97,13 @@ namespace AnimalHybridBattles
                         SpawnEntityRpc(entityGuid, index, j - startingIndex, PlayerDataContainer.LobbyIndex, spawnPoints[j].position);
                         return;
                     }
-                }, () => cooldownTimers[index]);
+                }, () => cooldownTimers[index], x =>
+                {
+                    if (PlayersEnergy.Count < PlayerDataContainer.LobbyIndex)
+                        return false;
+                    
+                    return PlayersEnergy[PlayerDataContainer.LobbyIndex] >= x.Cost;
+                });
             }
             
             if (!NetworkManager.IsServer)
@@ -119,9 +132,33 @@ namespace AnimalHybridBattles
         public void GoToMainMenu()
         {
             NetworkManager.Singleton.Shutdown();
+            Time.timeScale = 1f;
             SceneManager.LoadScene(Constants.Scenes.MainMenuSceneName);
         }
 
+        public void GoToLobby()
+        {
+            if (!NetworkManager.IsServer)
+                DestroyRemainingEntitiesRpc();
+            
+            Time.timeScale = 1f;
+            Destroy(FindFirstObjectByType<LobbyController>().gameObject);
+            SceneManager.LoadScene(Constants.Scenes.LobbySceneName);
+        }
+
+        [Rpc(SendTo.Server)]
+        private void DestroyRemainingEntitiesRpc()
+        {
+            var networkObjects = NetworkManager.SpawnManager.SpawnedObjects.Values;
+            for (var i = networkObjects.Count - 1; i >= 0; i--)
+            {
+                if (!networkObjects.ElementAt(i).TryGetComponent<EntityController>(out _))
+                    continue;
+
+                networkObjects.ElementAt(i).Despawn();
+            }
+        }
+        
         private void Update()
         {
             if (winScreen.activeSelf || loseScreen.activeSelf)
@@ -201,6 +238,8 @@ namespace AnimalHybridBattles
         [Rpc(SendTo.Everyone)]
         private void GameEndedRpc(ulong winnerId)
         {
+            Time.timeScale = 0f;
+            
             if (NetworkManager.LocalClientId == winnerId)
                 winScreen.SetActive(true);
             else
@@ -264,23 +303,23 @@ namespace AnimalHybridBattles
         private void HideAllHpSliders()
         {
             foreach (var slider in playerHpSliders)
-                slider.gameObject.SetActive(false);
+                slider?.gameObject.SetActive(false);
             
             foreach (var slider in enemyHpSliders)
-                slider.gameObject.SetActive(false);
+                slider?.gameObject.SetActive(false);
         }
 
         private void NetworkManager_OnServerStopped(bool isServer)
         {
             if (!PlayerDataContainer.IsHost())
-                winScreen.SetActive(true);
+                winScreen?.SetActive(true);
             
             HideAllHpSliders();
         }
 
         private void NetworkManager_OnConnectionEvent(NetworkManager arg1, ConnectionEventData arg2)
         {
-            if (arg2.EventType == ConnectionEvent.ClientDisconnected)
+            if (arg2.EventType == ConnectionEvent.ClientDisconnected && winScreen != null)
                 winScreen.SetActive(true);
             
             HideAllHpSliders();

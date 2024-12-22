@@ -12,13 +12,19 @@ namespace AnimalHybridBattles.Entities
         [SerializeField] private Image cooldownImage;
         [SerializeField] private TextMeshProUGUI entityCost;
 
-        private EntitySettings entitySettings;
+        [SerializeField] private Color validColor;
+        [SerializeField] private Color invalidColor;
 
-        public void Initialize(EntitySettings entitySettings, Action<Guid> spawnEntityCallback, Func<float> cooldownCallback)
+        private EntitySettings entitySettings;
+        private Predicate<EntitySettings> hasEnoughEnergyCallback;
+
+        public void Initialize(EntitySettings entitySettings, Action<Guid> spawnEntityCallback, Func<float> cooldownCallback, Predicate<EntitySettings> hasEnoughEnergyCallback)
         {
             this.entitySettings = entitySettings;
             entityImage.sprite = entitySettings.Sprite;
             entityCost.text = entitySettings.Cost.ToString();
+            
+            this.hasEnoughEnergyCallback = hasEnoughEnergyCallback;
             
             selectButton.onClick.AddListener(() =>
             {
@@ -27,6 +33,14 @@ namespace AnimalHybridBattles.Entities
                 
                 spawnEntityCallback.Invoke(entitySettings.Guid);
             });
+        }
+
+        private void Update()
+        {
+            if (hasEnoughEnergyCallback == null || entitySettings == null)
+                return;
+            
+            entityCost.color = hasEnoughEnergyCallback.Invoke(entitySettings) ? validColor : invalidColor;
         }
 
         public void UpdateCooldown(float cooldown)
