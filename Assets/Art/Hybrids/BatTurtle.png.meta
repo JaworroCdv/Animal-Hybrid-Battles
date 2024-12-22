@@ -178,7 +178,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BatTurtle_0: -5469937349864532
+      BatTurtle_1: 4618164004294643223
+      BatTurtle_2: -3421273844635054057
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

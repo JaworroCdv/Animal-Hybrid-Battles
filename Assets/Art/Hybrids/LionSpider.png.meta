@@ -250,7 +250,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      LionSpider_0: -2685257817221456411
+      LionSpider_1: -4816956971769729619
+      LionSpider_2: -6568566716159343567
+      LionSpider_3: 6777330358022744424
+      LionSpider_4: 4671675296554060093
+      LionSpider_5: -4630365077798450091
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

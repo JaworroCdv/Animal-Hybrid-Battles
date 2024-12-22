@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      LionTurtle_0: 2689307976024915502
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

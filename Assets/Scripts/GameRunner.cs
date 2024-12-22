@@ -20,11 +20,12 @@ namespace AnimalHybridBattles
         [SerializeField] private List<Slider> playerHpSliders;
         [SerializeField] private List<Slider> enemyHpSliders;
         [SerializeField] private int startingEnergy = 50;
+        [SerializeField] private int energyPerSecond = 2;
         [SerializeField] private float gameDuration = 120f;
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private GameObject winScreen;
         [SerializeField] private GameObject loseScreen;
-        [SerializeField] private TextMeshProUGUI pointsText;
+        [SerializeField] private List<Slider> playersHealth;
         
         public event Action OnPlayerMoneyChanged;
         
@@ -37,10 +38,14 @@ namespace AnimalHybridBattles
         private readonly NetworkVariable<bool> gameEnded = new();
         
         private NetworkList<float> cooldownTimers;
-        private NetworkList<int> playerPoints;
+        private NetworkList<float> playerHealth;
         private bool[] spawnPointsOccupied;
         private float energyTimer;
         private float pointsTimer;
+        
+        private const float StartingHealth = 500f;
+        
+        private static Camera MainCamera => Camera.main;
         
         private void Awake()
         {
@@ -50,13 +55,16 @@ namespace AnimalHybridBattles
             NetworkManager.OnConnectionEvent += NetworkManager_OnConnectionEvent;
             
             spawnPointsOccupied = new bool[SpawnPointsPerPlayer];
-            playerPoints = new NetworkList<int>();
-            playerPoints.OnListChanged += _ =>
+            playerHealth = new NetworkList<float>();
+            playerHealth.OnListChanged += changeEvent =>
             {
-                if (playerPoints.Count < 2)
-                    return;
+                if (changeEvent.Value <= 0 && NetworkManager.IsServer)
+                {
+                    gameEnded.Value = true;
+                    GameEndedRpc(GetWinner());
+                }
                 
-                pointsText.text = $"{playerPoints[0]} - {playerPoints[1]}";
+                playersHealth[changeEvent.Index].value = changeEvent.Value / StartingHealth;
             };
             
             PlayersEnergy = new NetworkList<int>();
@@ -83,28 +91,7 @@ namespace AnimalHybridBattles
             {
                 var index = i;
                 var entitySettings = GameData.EntitySettings[PlayerDataContainer.SelectedUnits[i]];
-                entityEntries[i].Initialize(entitySettings, entityGuid =>
-                {
-                    if (GameData.EntitySettings[entityGuid].Cost > PlayersEnergy[PlayerDataContainer.LobbyIndex])
-                        return;
-                    
-                    var startingIndex = SpawnPointsPerPlayer * PlayerDataContainer.LobbyIndex;
-                    for (var j = startingIndex; j < startingIndex + SpawnPointsPerPlayer; j++)
-                    {
-                        if (spawnPointsOccupied[j - startingIndex])
-                            continue;
-                
-                        spawnPointsOccupied[j - startingIndex] = true;
-                        SpawnEntityRpc(entityGuid, index, j - startingIndex, PlayerDataContainer.LobbyIndex, spawnPoints[j].position);
-                        return;
-                    }
-                }, () => cooldownTimers[index], x =>
-                {
-                    if (PlayersEnergy.Count < PlayerDataContainer.LobbyIndex)
-                        return false;
-                    
-                    return PlayersEnergy[PlayerDataContainer.LobbyIndex] >= x.Cost;
-                });
+                entityEntries[i].Initialize(entitySettings, x => RequestEntitySpawn(x, index), () => cooldownTimers[index], HasEnoughEnergy);
             }
             
             if (!NetworkManager.IsServer)
@@ -113,8 +100,8 @@ namespace AnimalHybridBattles
             energyTimer = Time.time;
             pointsTimer = Time.time;
             
-            playerPoints.Add(0);
-            playerPoints.Add(0);
+            playerHealth.Add(StartingHealth);
+            playerHealth.Add(StartingHealth);
             
             PlayersEnergy.Add(startingEnergy);
             PlayersEnergy.Add(startingEnergy);
@@ -148,19 +135,6 @@ namespace AnimalHybridBattles
             SceneManager.LoadScene(Constants.Scenes.LobbySceneName);
         }
 
-        [Rpc(SendTo.Server)]
-        private void DestroyRemainingEntitiesRpc()
-        {
-            var networkObjects = NetworkManager.SpawnManager.SpawnedObjects.Values;
-            for (var i = networkObjects.Count - 1; i >= 0; i--)
-            {
-                if (!networkObjects.ElementAt(i).TryGetComponent<EntityController>(out _))
-                    continue;
-
-                networkObjects.ElementAt(i).Despawn();
-            }
-        }
-        
         private void Update()
         {
             if (winScreen.activeSelf || loseScreen.activeSelf)
@@ -175,16 +149,15 @@ namespace AnimalHybridBattles
             if (gameTimer.Value <= 0)
             {
                 gameEnded.Value = true;
-                var winner = playerPoints[0] > playerPoints[1] ? NetworkManager.ConnectedClientsIds[0] : playerPoints[0] == playerPoints[1] ? ulong.MaxValue : NetworkManager.ConnectedClientsIds[1];
-                GameEndedRpc(winner);
+                GameEndedRpc(GetWinner());
                 return;
             }
 
             if (Time.time - pointsTimer >= 20f)
             {
                 pointsTimer = Time.time;
-                playerPoints[0] = Mathf.Max(0, playerPoints[0] - 1);
-                playerPoints[1] = Mathf.Max(0, playerPoints[1] - 1);
+                playerHealth[0] = Mathf.Max(0, playerHealth[0] - 1);
+                playerHealth[1] = Mathf.Max(0, playerHealth[1] - 1);
             }
 
             if (Time.time - energyTimer >= 1f)
@@ -207,6 +180,31 @@ namespace AnimalHybridBattles
             }
         }
 
+        private void RequestEntitySpawn(Guid entityGuid, int index)
+        {
+            if (GameData.EntitySettings[entityGuid].Cost > PlayersEnergy[PlayerDataContainer.LobbyIndex])
+                return;
+                    
+            var startingIndex = SpawnPointsPerPlayer * PlayerDataContainer.LobbyIndex;
+            for (var j = startingIndex; j < startingIndex + SpawnPointsPerPlayer; j++)
+            {
+                if (spawnPointsOccupied[j - startingIndex])
+                    continue;
+                
+                spawnPointsOccupied[j - startingIndex] = true;
+                SpawnEntityRpc(entityGuid, index, j - startingIndex, PlayerDataContainer.LobbyIndex, spawnPoints[j].position);
+                return;
+            }
+        }
+
+        private bool HasEnoughEnergy(EntitySettings entitySettings)
+        {
+            if (PlayersEnergy.Count < PlayerDataContainer.LobbyIndex)
+                return false;
+                    
+            return PlayersEnergy[PlayerDataContainer.LobbyIndex] >= entitySettings.Cost;
+        }
+
         private void UpdateEntityHealthSliders()
         {
             if (!NetworkManager.IsConnectedClient)
@@ -223,7 +221,7 @@ namespace AnimalHybridBattles
                 {
                     playerHpSliders[index].gameObject.SetActive(true);
                     playerHpSliders[index].value = entityController.Health.Value / entityController.MaxHealth;
-                    playerHpSliders[index].transform.position = Camera.main.WorldToScreenPoint(entityController.transform.position + Vector3.up * 0.5f);
+                    playerHpSliders[index].transform.position = MainCamera.WorldToScreenPoint(entityController.transform.position + Vector3.up * 0.5f);
                 
                     index++;
                 }
@@ -231,7 +229,7 @@ namespace AnimalHybridBattles
                 {
                     enemyHpSliders[enemyIndex].gameObject.SetActive(true);
                     enemyHpSliders[enemyIndex].value = entityController.Health.Value / entityController.MaxHealth;
-                    enemyHpSliders[enemyIndex].transform.position = Camera.main.WorldToScreenPoint(entityController.transform.position + Vector3.up * 0.5f);
+                    enemyHpSliders[enemyIndex].transform.position = MainCamera.WorldToScreenPoint(entityController.transform.position + Vector3.up * 0.5f);
                     
                     enemyIndex++;
                 }
@@ -242,6 +240,33 @@ namespace AnimalHybridBattles
             
             for (var i = enemyIndex; i < enemyHpSliders.Count; i++)
                 enemyHpSliders[i].gameObject.SetActive(false);
+        }
+        
+        private void HideAllHpSliders()
+        {
+            foreach (var slider in playerHpSliders)
+                slider?.gameObject.SetActive(false);
+            
+            foreach (var slider in enemyHpSliders)
+                slider?.gameObject.SetActive(false);
+        }
+
+        private ulong GetWinner()
+        {
+            return playerHealth[0] > playerHealth[1] ? NetworkManager.ConnectedClientsIds[0] : Math.Abs(playerHealth[0] - playerHealth[1]) < 0.1f ? ulong.MaxValue : NetworkManager.ConnectedClientsIds[1];
+        }
+
+        [Rpc(SendTo.Server)]
+        private void DestroyRemainingEntitiesRpc()
+        {
+            var networkObjects = NetworkManager.SpawnManager.SpawnedObjects.Values;
+            for (var i = networkObjects.Count - 1; i >= 0; i--)
+            {
+                if (!networkObjects.ElementAt(i).TryGetComponent<EntityController>(out _))
+                    continue;
+
+                networkObjects.ElementAt(i).Despawn();
+            }
         }
 
         [Rpc(SendTo.Everyone)]
@@ -258,8 +283,8 @@ namespace AnimalHybridBattles
         [Rpc(SendTo.Server)]
         private void AddEnergyRpc()
         {
-            PlayersEnergy[0] += 1;
-            PlayersEnergy[1] += 1;
+            PlayersEnergy[0] += energyPerSecond;
+            PlayersEnergy[1] += energyPerSecond;
         }
         
         [Rpc(SendTo.Everyone)]
@@ -305,17 +330,8 @@ namespace AnimalHybridBattles
                 if (!NetworkManager.IsServer)
                     return;
                 
-                playerPoints[playerIndex == 0 ? 1 : 0] += 1;
+                playerHealth[playerIndex == 0 ? 1 : 0] += 1;
             }
-        }
-        
-        private void HideAllHpSliders()
-        {
-            foreach (var slider in playerHpSliders)
-                slider?.gameObject.SetActive(false);
-            
-            foreach (var slider in enemyHpSliders)
-                slider?.gameObject.SetActive(false);
         }
 
         private void NetworkManager_OnServerStopped(bool isServer)
@@ -332,6 +348,12 @@ namespace AnimalHybridBattles
                 winScreen.SetActive(true);
             
             HideAllHpSliders();
+        }
+
+        [Rpc(SendTo.Server)]
+        public void AttackPlayerRpc(float attackDamage, int playerIndex)
+        {
+            playerHealth[playerIndex] -= attackDamage;
         }
     }
 }

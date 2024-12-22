@@ -154,7 +154,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      LionSeahorse_0: -266050846962888350
+      LionSeahorse_1: 6355864829857100585
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

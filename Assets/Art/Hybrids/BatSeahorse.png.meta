@@ -154,7 +154,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BatSeahorse_0: 3766996817248962660
+      BatSeahorse_1: -2556225674274241499
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

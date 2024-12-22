@@ -74,36 +74,42 @@ namespace AnimalHybridBattles.Entities
             var enemyIndex = playerIndex == 0 ? 1 : 0;
             var enemyUnits = NetworkManager.ConnectedClientsList[enemyIndex].OwnedObjects.Where(x => x.HasComponent<EntityController>()).ToList();
             if (enemyUnits.Count == 0)
+            {
+                GameRunner.Instance.AttackPlayerRpc(entitySettings.AttackDamage, playerIndex == 0 ? 1 : 0);
+                AnimateAttackRpc(entityId, ulong.MaxValue);
                 return;
+            }
             
             var randomEntity = enemyUnits.RandomItem();
             var entityController = NetworkManager.SpawnManager.SpawnedObjects[entityId].GetComponent<EntityController>();
             
             randomEntity.GetComponent<EntityController>().Health.Value -= entityController.entitySettings.AttackDamage;
             
-            Debug.Log($"{entityId} attacked {randomEntity.NetworkObjectId} for {entityController.entitySettings.AttackDamage} damage");
-            
-            AnimateAttackRpc(entityId, randomEntity.NetworkObjectId, entityController.entitySettings.AttackDamage);
+            AnimateAttackRpc(entityId, randomEntity.NetworkObjectId);
         }
 
         [Rpc(SendTo.Everyone, RequireOwnership = false)]
-        private void AnimateAttackRpc(ulong entityId, ulong attackedEntityId, float damageDone)
+        private void AnimateAttackRpc(ulong entityId, ulong attackedEntityId)
         {
             if (entityId != NetworkObjectId)
                 return;
             
             var entity = NetworkManager.SpawnManager.SpawnedObjects[entityId];
-            var attackedEntity = NetworkManager.SpawnManager.SpawnedObjects[attackedEntityId];
+            var attackedEntity = attackedEntityId != ulong.MaxValue ? NetworkManager.SpawnManager.SpawnedObjects[attackedEntityId] : null;
             
             attackCooldown = entitySettings.AttackCooldown;
             isRequestingAttack = false;
             
-            Sequence.Create()
-                .Chain(Tween.Scale(entity.transform, 0.9f, 0.5f, 0.5f, Ease.OutBack))
-                .Group(Tween.Rotation(attackedEntity.transform, Vector3.back * 10f, Vector3.zero, 0.5f, Ease.OutBack))
+            var sequence = Sequence.Create()
+                .Chain(Tween.Scale(entity.transform, 0.9f, 0.5f, 0.5f, Ease.OutBack));
+                
+            if (attackedEntity)
+                sequence.Group(Tween.Rotation(attackedEntity.transform, Vector3.back * 10f, Vector3.zero, 0.5f, Ease.OutBack));
+                        
+            sequence
                 .OnComplete(() =>
                 {
-                    if (!IsServer)
+                    if (!IsServer || !attackedEntity)
                         return;
                     
                     var attackedEntityController = attackedEntity.GetComponent<EntityController>();

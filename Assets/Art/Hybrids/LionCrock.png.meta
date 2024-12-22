@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      LionCrock_0: -2652313418511021297
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

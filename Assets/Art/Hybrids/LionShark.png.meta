@@ -178,7 +178,10 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      LionShark_0: 7935170639952936593
+      LionShark_1: -5632799923907224576
+      LionShark_2: 7276281132557775039
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

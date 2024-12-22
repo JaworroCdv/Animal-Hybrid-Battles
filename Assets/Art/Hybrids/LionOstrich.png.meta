@@ -154,7 +154,9 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      LionOstrich_0: 7935513986084648188
+      LionOstrich_1: -4633299948315345889
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
