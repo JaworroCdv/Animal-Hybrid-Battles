@@ -40,6 +40,7 @@ namespace AnimalHybridBattles
         private NetworkList<int> playerPoints;
         private bool[] spawnPointsOccupied;
         private float energyTimer;
+        private float pointsTimer;
         
         private void Awake()
         {
@@ -110,6 +111,7 @@ namespace AnimalHybridBattles
                 return;
             
             energyTimer = Time.time;
+            pointsTimer = Time.time;
             
             playerPoints.Add(0);
             playerPoints.Add(0);
@@ -176,6 +178,13 @@ namespace AnimalHybridBattles
                 var winner = playerPoints[0] > playerPoints[1] ? NetworkManager.ConnectedClientsIds[0] : playerPoints[0] == playerPoints[1] ? ulong.MaxValue : NetworkManager.ConnectedClientsIds[1];
                 GameEndedRpc(winner);
                 return;
+            }
+
+            if (Time.time - pointsTimer >= 20f)
+            {
+                pointsTimer = Time.time;
+                playerPoints[0] = Mathf.Max(0, playerPoints[0] - 1);
+                playerPoints[1] = Mathf.Max(0, playerPoints[1] - 1);
             }
 
             if (Time.time - energyTimer >= 1f)

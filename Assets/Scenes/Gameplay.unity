@@ -4133,7 +4133,7 @@ MonoBehaviour:
   - {fileID: 882556408}
   - {fileID: 1997092807}
   startingEnergy: 50
-  gameDuration: 60
+  gameDuration: 120
   timerText: {fileID: 456427394}
   winScreen: {fileID: 1361170935}
   loseScreen: {fileID: 154081395}
