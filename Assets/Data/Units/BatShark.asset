@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: BatShark
   m_EditorClassIdentifier: 
+  serializedGuid: 6a31965d8356d9e46a080e317fce3e3f
   entityName: BatShark
-  sprite: {fileID: 0}
+  sprite: {fileID: -1793373948470916398, guid: d7e1a8cdaa956ae49b0ec0c10e27a0ff, type: 3}
   cost: 17
   spawnCooldown: 4.5
   health: 140

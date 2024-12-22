@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: LionSpider
   m_EditorClassIdentifier: 
+  serializedGuid: 930ac5d396e2aee479084fc640e7e414
   entityName: LionSpider
-  sprite: {fileID: 0}
+  sprite: {fileID: -2685257817221456411, guid: 2060720e17cfbc54dbe25ee28cd20329, type: 3}
   cost: 22
   spawnCooldown: 5.5
   health: 160

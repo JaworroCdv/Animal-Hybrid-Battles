@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: BatSpider
   m_EditorClassIdentifier: 
+  serializedGuid: 13550ed85a895564ab424f5b797ca76b
   entityName: BatSpider
-  sprite: {fileID: 0}
+  sprite: {fileID: -3197511200060812798, guid: 38f1c4248e02eb04c9d51ef32cd1872e, type: 3}
   cost: 12
   spawnCooldown: 3.5
   health: 105

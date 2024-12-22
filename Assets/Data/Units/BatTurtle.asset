@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: BatTurtle
   m_EditorClassIdentifier: 
+  serializedGuid: a3fb2807a24daa248af2728e2e5c403c
   entityName: BatTurtle
-  sprite: {fileID: 0}
+  sprite: {fileID: -5469937349864532, guid: 1e6b7a1d56e515d4fb45b83f48f67c38, type: 3}
   cost: 8
   spawnCooldown: 3.5
   health: 110

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680a61182ec943d58c2775cf8d692895, type: 3}
   m_Name: BatCrab
   m_EditorClassIdentifier: 
+  serializedGuid: ffd2d77ba416d6c468ca87e9f8424f77
   entityName: BatCrab
-  sprite: {fileID: 0}
+  sprite: {fileID: -8335756504626423123, guid: b4394f83cf98a274c8105bb575b39e39, type: 3}
   cost: 11
   spawnCooldown: 3
   health: 100
